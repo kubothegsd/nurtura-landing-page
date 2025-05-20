@@ -1,0 +1,8 @@
+---
+description: For the Ui generation
+globs: 
+---
+
+# Your rule content
+
+- Always use tailwind for styling
