@@ -1,14 +1,9 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { ChildIllustration } from "../components/illustrations/ChildIllustration";
-import { useState } from "react";
 import { FeatureIllustration } from "../components/illustrations/FeatureIllustration";
 import { QuizPreview } from "../components/QuizPreview";
 
 const LandingPage = () => {
-  const { scrollYProgress } = useScroll();
-  const opacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
-  const [hoveredFeature, setHoveredFeature] = useState<number | null>(null);
-
   return (
     <div className="w-full bg-brand-blush">
       {/* Hero Section */}
