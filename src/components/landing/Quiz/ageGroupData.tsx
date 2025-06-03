@@ -1,4 +1,14 @@
-const corePersonalities = {
+export type Personality =
+  | "physical"
+  | "social"
+  | "logical"
+  | "creative"
+  | "observational"
+  | "emotional"
+  | "independent"
+  | "sensory";
+
+const corePersonalities: Record<Personality, Personality> = {
   physical: "physical",
   social: "social",
   logical: "logical",
@@ -9,7 +19,19 @@ const corePersonalities = {
   sensory: "sensory",
 };
 
-const infantLearningProfiles = {
+type LearningProfile = {
+  icon: string;
+  description: string;
+  traits: string[];
+  activities: string[];
+  ageGroup: AgeGroup;
+};
+
+type LearningProfileByPersonality = Partial<
+  Record<Personality, LearningProfile>
+>;
+
+const infantLearningProfiles: LearningProfileByPersonality = {
   // Infant profiles (0-12 months)
   [corePersonalities.observational]: {
     icon: "🍼",
@@ -113,7 +135,7 @@ const infantLearningProfiles = {
   },
 };
 
-const toddlerLearningProfiles = {
+const toddlerLearningProfiles: LearningProfileByPersonality = {
   // Toddler profiles (1-2 years)
   [corePersonalities.physical]: {
     icon: "🏃",
@@ -221,7 +243,7 @@ const toddlerLearningProfiles = {
   },
 };
 
-const earlyPreschoolLearningProfiles = {
+const earlyPreschoolLearningProfiles: LearningProfileByPersonality = {
   // Early Preschool profiles (2-3 years)
   [corePersonalities.physical]: {
     icon: "🏃",
@@ -325,7 +347,7 @@ const earlyPreschoolLearningProfiles = {
   },
 };
 
-const preschoolLearningProfiles = {
+const preschoolLearningProfiles: LearningProfileByPersonality = {
   // Preschool profiles (3-4 years)
   [corePersonalities.physical]: {
     icon: "🏃",
@@ -453,7 +475,7 @@ const preschoolLearningProfiles = {
   },
 };
 
-const preKLearningProfiles = {
+const preKLearningProfiles: LearningProfileByPersonality = {
   // Pre-K profiles (4-5+ years)
   [corePersonalities.physical]: {
     icon: "🏃",
@@ -573,7 +595,17 @@ const preKLearningProfiles = {
   },
 };
 
-const learningProfilesByAgeGroup = {
+export type AgeGroup =
+  | "infant"
+  | "toddler"
+  | "earlyPreschool"
+  | "preschool"
+  | "preK";
+
+const learningProfilesByAgeGroup: Record<
+  AgeGroup,
+  LearningProfileByPersonality
+> = {
   infant: infantLearningProfiles,
   toddler: toddlerLearningProfiles,
   earlyPreschool: earlyPreschoolLearningProfiles,
@@ -581,66 +613,90 @@ const learningProfilesByAgeGroup = {
   preK: preKLearningProfiles,
 };
 
-const namesByAgeGroup = {
-  [corePersonalities.physical]: {
-    infant: "Active Mover",
-    toddler: "Physical Explorer",
-    earlyPreschool: "Active Learner",
-    preschool: "Physical Achiever",
-    preK: "Kinesthetic Learner",
-  },
-  [corePersonalities.social]: {
-    infant: "Social Connector",
-    toddler: "Social Imitator",
-    earlyPreschool: "Social Butterfly",
-    preschool: "Social Collaborator",
-    preK: "Collaborative Learner",
-  },
-  [corePersonalities.logical]: {
-    infant: "Calm Processor",
-    toddler: "Pattern Seeker",
-    earlyPreschool: "Logic Lover",
-    preschool: "Pattern Master",
-    preK: "Logical Thinker",
-  },
-  [corePersonalities.creative]: {
-    infant: "Expressive Communicator",
-    toddler: "Creative Player",
-    earlyPreschool: "Creative Dreamer",
-    preschool: "Creative Innovator",
-    preK: "Creative Visionary",
-  },
-  [corePersonalities.observational]: {
-    infant: "Gentle Observer",
-    toddler: "Cautious Observer",
-    earlyPreschool: "Thoughtful Observer",
-    preschool: "Reflective Thinker",
-    preK: "Contemplative Learner",
-  },
-  [corePersonalities.emotional]: {
-    infant: "Emotional Responder",
-    toddler: "Emotional Connector",
-    earlyPreschool: "Empathy Helper",
-    preschool: "Emotional Intuitive",
-    preK: "Emotionally Intelligent",
-  },
-  [corePersonalities.independent]: {
-    infant: "Curious Investigator",
-    toddler: "Independent Doer",
-    earlyPreschool: "Curious Explorer",
-    preschool: "Independent Investigator",
-    preK: "Self-Directed Learner",
-  },
-  [corePersonalities.sensory]: {
-    infant: "Sensory Explorer",
-    toddler: "Sensory Seeker",
-    earlyPreschool: "Sensory Adventurer",
-    preschool: "Sensory Processor",
-    preK: "Multi-Sensory Learner",
-  },
+const namesByAgeGroup: Partial<Record<Personality, Record<AgeGroup, string>>> =
+  {
+    [corePersonalities.physical]: {
+      infant: "Active Mover",
+      toddler: "Physical Explorer",
+      earlyPreschool: "Active Learner",
+      preschool: "Physical Achiever",
+      preK: "Kinesthetic Learner",
+    },
+    [corePersonalities.social]: {
+      infant: "Social Connector",
+      toddler: "Social Imitator",
+      earlyPreschool: "Social Butterfly",
+      preschool: "Social Collaborator",
+      preK: "Collaborative Learner",
+    },
+    [corePersonalities.logical]: {
+      infant: "Calm Processor",
+      toddler: "Pattern Seeker",
+      earlyPreschool: "Logic Lover",
+      preschool: "Pattern Master",
+      preK: "Logical Thinker",
+    },
+    [corePersonalities.creative]: {
+      infant: "Expressive Communicator",
+      toddler: "Creative Player",
+      earlyPreschool: "Creative Dreamer",
+      preschool: "Creative Innovator",
+      preK: "Creative Visionary",
+    },
+    [corePersonalities.observational]: {
+      infant: "Gentle Observer",
+      toddler: "Cautious Observer",
+      earlyPreschool: "Thoughtful Observer",
+      preschool: "Reflective Thinker",
+      preK: "Contemplative Learner",
+    },
+    [corePersonalities.emotional]: {
+      infant: "Emotional Responder",
+      toddler: "Emotional Connector",
+      earlyPreschool: "Empathy Helper",
+      preschool: "Emotional Intuitive",
+      preK: "Emotionally Intelligent",
+    },
+    [corePersonalities.independent]: {
+      infant: "Curious Investigator",
+      toddler: "Independent Doer",
+      earlyPreschool: "Curious Explorer",
+      preschool: "Independent Investigator",
+      preK: "Self-Directed Learner",
+    },
+    [corePersonalities.sensory]: {
+      infant: "Sensory Explorer",
+      toddler: "Sensory Seeker",
+      earlyPreschool: "Sensory Adventurer",
+      preschool: "Sensory Processor",
+      preK: "Multi-Sensory Learner",
+    },
+  };
+
+export type Zodiac =
+  | "aries"
+  | "taurus"
+  | "gemini"
+  | "cancer"
+  | "leo"
+  | "virgo"
+  | "libra"
+  | "scorpio"
+  | "sagittarius"
+  | "capricorn"
+  | "aquarius"
+  | "pisces";
+
+export type ZodiacSign = {
+  icon: string;
+  element: string;
+  traits: string[];
+  dates: [number, number, number, number];
+  primary: Personality[];
+  secondary: Personality[];
 };
 
-const zodiacSigns = {
+const zodiacSigns: Record<Zodiac, ZodiacSign> = {
   aries: {
     icon: "♈",
     element: "fire",
@@ -739,7 +795,16 @@ const zodiacSigns = {
   },
 };
 
-const infantQuestions = {
+type Question = {
+  scenario: string;
+  prediction: string;
+  question: string;
+  weight: number;
+};
+
+type QuestionsByPersonality = Partial<Record<Personality, Question[]>>;
+
+const infantQuestions: QuestionsByPersonality = {
   [corePersonalities.observational]: [
     {
       scenario: "Meeting New People",
@@ -874,7 +939,7 @@ const infantQuestions = {
   ],
 };
 
-const toddlerQuestions = {
+const toddlerQuestions: QuestionsByPersonality = {
   [corePersonalities.physical]: [
     {
       scenario: "Movement Preference",
@@ -1007,7 +1072,7 @@ const toddlerQuestions = {
   ],
 };
 
-const earlyPreschoolQuestions = {
+const earlyPreschoolQuestions: QuestionsByPersonality = {
   [corePersonalities.physical]: [
     {
       scenario: "Movement Learning",
@@ -1286,7 +1351,7 @@ const preschoolQuestions = {
   ],
 };
 
-const preKQuestions = {
+const preKQuestions: Partial<Record<Personality, Question[]>> = {
   [corePersonalities.physical]: [
     {
       scenario: "Movement-Based Learning",
@@ -1426,7 +1491,9 @@ const preKQuestions = {
   ],
 };
 
-const ageSpecificQuestionsByAgeGroup = {
+const ageSpecificQuestionsByAgeGroup: Partial<
+  Record<AgeGroup, QuestionsByPersonality>
+> = {
   infant: infantQuestions,
   toddler: toddlerQuestions,
   earlyPreschool: earlyPreschoolQuestions,
