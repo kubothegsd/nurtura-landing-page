@@ -113,7 +113,7 @@ const NavLinks = ({
   const links = [
     { to: "/about", label: "About" },
     { href: "#features", label: "Features" },
-    { href: "#quiz", label: "Quiz" },
+    { to: "/quiz", label: "Quiz" },
   ];
 
   return (
