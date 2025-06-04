@@ -3,19 +3,19 @@ import { FeatureIllustration } from "../illustrations/FeatureIllustration";
 
 const features = [
   {
-    title: "AI-Powered Analysis",
+    title: "AI-Powered Discovery",
     description:
-      "Our advanced AI helps identify your child's personality traits and learning style",
+      "Our intelligent AI identifies your child's interests, learning style, and developmental stage to unlock new ways to connect and play together",
   },
   {
-    title: "Personalized Activities",
+    title: "Smart Play Recommendations",
     description:
-      "Get custom-tailored activities that match your child's interests and development stage",
+      "Get AI-curated activities that perfectly match your child's personality, ensuring every play session is engaging and meaningful",
   },
   {
-    title: "Track Progress",
+    title: "Adaptive Learning Insights",
     description:
-      "Monitor your child's development and adjust activities for optimal growth",
+      "AI continuously learns from your interactions to suggest better activities and help you discover new aspects of your child's development",
   },
 ];
 
@@ -61,11 +61,11 @@ export const Features = () => {
             Simple & Effective
           </span>
           <h2 className="text-4xl md:text-5xl font-bold text-brand-blue mb-6">
-            How It Works
+            How AI Helps You Connect
           </h2>
           <p className="text-lg text-brand-turquoise/80">
-            Our AI-powered platform makes understanding and nurturing your
-            child's development simple and enjoyable
+            Our AI transforms the way you discover your child's potential and
+            creates meaningful play experiences together
           </p>
         </motion.div>
 
@@ -114,10 +114,10 @@ export const Features = () => {
         {/* Simplified additional features */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto mt-16">
           {[
-            { icon: "🎯", label: "Personalized Path" },
-            { icon: "🔄", label: "Regular Updates" },
-            { icon: "📊", label: "Progress Tracking" },
-            { icon: "🤝", label: "Expert Support" },
+            { icon: "🤖", label: "AI-Powered Insights" },
+            { icon: "🎮", label: "Smart Play Ideas" },
+            { icon: "📈", label: "Growth Tracking" },
+            { icon: "💝", label: "Family Bonding" },
           ].map((item, i) => (
             <motion.div
               key={i}

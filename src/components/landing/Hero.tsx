@@ -108,9 +108,9 @@ export const Hero = () => {
                 transition={{ delay: 0.4 }}
                 className="text-5xl md:text-7xl font-bold text-brand-blue leading-tight"
               >
-                Understand Your Child Better with{" "}
+                Discover & Play with Your Child Using{" "}
                 <span className="relative inline-block">
-                  AI
+                  AI Intelligence
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: "100%" }}
@@ -127,8 +127,9 @@ export const Hero = () => {
               transition={{ delay: 0.5 }}
               className="text-xl font-secondary text-brand-turquoise/80 max-w-lg"
             >
-              Discover your child's unique personality and get personalized
-              activity recommendations tailored to their development
+              Our AI analyzes your child's unique personality and interests to
+              suggest perfect activities for meaningful discovery and play time
+              together
             </motion.p>
 
             <motion.div
@@ -142,7 +143,7 @@ export const Hero = () => {
                 whileTap={{ scale: 0.95 }}
                 className="bg-gradient-to-r from-brand-mint to-brand-turquoise text-white font-primary font-bold px-8 py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300"
               >
-                Start Your Journey
+                Start AI Discovery
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.05, x: 5 }}
@@ -178,7 +179,8 @@ export const Hero = () => {
                 ))}
               </div>
               <div className="text-sm text-brand-turquoise">
-                <span className="font-bold">1000+</span> happy parents
+                <span className="font-bold">1000+</span> families discovering
+                together with AI
               </div>
             </motion.div>
           </motion.div>
@@ -212,9 +214,11 @@ export const Hero = () => {
               className="absolute -right-4 top-1/4 bg-white p-3 rounded-xl shadow-xl"
             >
               <div className="text-sm font-bold text-brand-blue">
-                AI-Powered
+                AI-Powered Discovery
               </div>
-              <div className="text-xs text-brand-turquoise">Smart Analysis</div>
+              <div className="text-xs text-brand-turquoise">
+                Smart Play Suggestions
+              </div>
             </motion.div>
 
             <motion.div
@@ -224,9 +228,11 @@ export const Hero = () => {
               className="absolute -left-4 bottom-1/4 bg-white p-3 rounded-xl shadow-xl"
             >
               <div className="text-sm font-bold text-brand-blue">
-                Personalized
+                Tailored Activities
               </div>
-              <div className="text-xs text-brand-turquoise">For Your Child</div>
+              <div className="text-xs text-brand-turquoise">
+                For Your Child's Growth
+              </div>
             </motion.div>
           </motion.div>
         </div>

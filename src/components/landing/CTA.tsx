@@ -73,14 +73,15 @@ export const CTA = () => {
             className="bg-white/10 backdrop-blur-lg rounded-3xl p-8 md:p-12 shadow-2xl"
           >
             <span className="inline-block bg-white/20 text-white px-4 py-2 rounded-full text-sm font-medium mb-8">
-              Start Your Journey Today
+              Start Your AI-Powered Journey
             </span>
 
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
-              Ready to Better Understand Your Child?
+              Ready to Unlock Your Child's Potential with AI?
             </h2>
             <p className="font-accent text-2xl text-white/90 mb-12">
-              Join thousands of happy parents on this journey
+              Join thousands of families discovering new ways to connect and
+              play together using AI insights
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -89,30 +90,30 @@ export const CTA = () => {
                 whileTap={{ scale: 0.95 }}
                 className="bg-white text-brand-turquoise font-primary font-bold px-8 py-4 rounded-full hover:bg-brand-blush hover:text-white transition-all duration-300 shadow-lg hover:shadow-xl w-full sm:w-auto"
               >
-                Get Started Free
+                Start AI Discovery
               </motion.button>
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="bg-transparent border-2 border-white text-white font-primary font-bold px-8 py-4 rounded-full hover:bg-white/10 transition-all duration-300 w-full sm:w-auto"
               >
-                Watch Demo
+                See AI in Action
               </motion.button>
             </div>
 
             {/* Trust indicators */}
             <div className="mt-12 pt-8 border-t border-white/20">
               <p className="text-white/80 text-sm mb-8">
-                Trusted by parents worldwide
+                Trusted by families worldwide for AI-powered discovery and play
               </p>
 
               {/* Stats */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
                 {[
-                  { number: "10k+", label: "Active Parents" },
-                  { number: "95%", label: "Satisfaction Rate" },
-                  { number: "50+", label: "Activities" },
-                  { number: "24/7", label: "AI Support" },
+                  { number: "10k+", label: "Families Using AI" },
+                  { number: "95%", label: "Better Connections" },
+                  { number: "500+", label: "AI-Curated Activities" },
+                  { number: "24/7", label: "AI Learning" },
                 ].map((stat, i) => (
                   <motion.div
                     key={i}
