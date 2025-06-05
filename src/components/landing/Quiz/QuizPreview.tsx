@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import {
   getAgeGroup,
   getZodiacSign,
@@ -8,12 +8,7 @@ import {
 import { zodiacSigns } from "./ageGroupData";
 import type { AgeGroup, Personality } from "./ageGroupData";
 
-type QuizStep =
-  | "intro"
-  | "basic-info"
-  | "zodiac-info"
-  | "questions"
-  | "results";
+type QuizStep = "basic-info" | "zodiac-info" | "questions" | "results";
 
 interface ChildInfo {
   gender: "boy" | "girl";
@@ -26,7 +21,7 @@ interface Answer {
 }
 
 export const QuizPreview = () => {
-  const [currentStep, setCurrentStep] = useState<QuizStep>("intro");
+  const [currentStep, setCurrentStep] = useState<QuizStep>("basic-info");
   const [childInfo, setChildInfo] = useState<ChildInfo>({
     gender: "boy",
     birthDate: new Date(),
@@ -34,46 +29,7 @@ export const QuizPreview = () => {
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
 
-  // Magical introduction step
-  const IntroStep = () => (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 flex items-center justify-center p-6">
-      <div className="max-w-2xl text-center">
-        <div className="mb-8 animate-bounce">
-          <span className="text-8xl">🌟</span>
-        </div>
-        <h1 className="text-5xl font-bold text-white mb-6 bg-gradient-to-r from-yellow-400 to-pink-400 bg-clip-text text-transparent">
-          ✨ Magical Discovery Quest ✨
-        </h1>
-        <p className="text-xl text-purple-100 mb-8 leading-relaxed">
-          Welcome to an enchanted journey of discovery! We'll unveil the
-          mystical secrets of your child's unique learning personality through
-          cosmic wisdom and magical insights.
-        </p>
-        <div className="grid grid-cols-3 gap-6 mb-8">
-          <div className="text-center">
-            <div className="text-4xl mb-2">🔮</div>
-            <p className="text-purple-200">Cosmic Insights</p>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl mb-2">🌙</div>
-            <p className="text-purple-200">Mystical Questions</p>
-          </div>
-          <div className="text-center">
-            <div className="text-4xl mb-2">⭐</div>
-            <p className="text-purple-200">Magical Results</p>
-          </div>
-        </div>
-        <button
-          onClick={() => setCurrentStep("basic-info")}
-          className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-full text-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
-        >
-          Begin the Magic ✨
-        </button>
-      </div>
-    </div>
-  );
-
-  // Basic information collection step
+  // Basic information collection step with introduction
   const BasicInfoStep = () => {
     const currentYear = new Date().getFullYear();
     const years = Array.from({ length: 6 }, (_, i) => currentYear - i); // 0-5 years old
@@ -131,14 +87,13 @@ export const QuizPreview = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 flex items-center justify-center p-6">
         <div className="max-w-lg w-full bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20 shadow-2xl">
-          <div className="text-center mb-8">
-            <span className="text-6xl block mb-4">🌙</span>
-            <h2 className="text-3xl font-bold text-white mb-2">
+          <div className="text-center mb-6">
+            <span className="text-4xl block mb-4">🌙</span>
+            <h2 className="text-2xl font-bold text-white mb-2">
               Tell Us About Your Little Star
             </h2>
             <p className="text-purple-200">
-              Every magical journey begins with a name and the moment they
-              entered our world...
+              Every AI analysis begins with understanding who they are...
             </p>
           </div>
 
@@ -255,7 +210,7 @@ export const QuizPreview = () => {
               onClick={() => setCurrentStep("zodiac-info")}
               className="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-xl transform hover:scale-105 transition-all duration-300 shadow-lg"
             >
-              Continue the Journey 🌟
+              Start AI Analysis 🌟
             </button>
           </div>
         </div>
@@ -267,6 +222,7 @@ export const QuizPreview = () => {
   const ZodiacInfoStep = () => {
     const zodiacSign = getZodiacSign(childInfo.birthDate);
     const zodiacData = zodiacSigns[zodiacSign];
+    const [showQuestions, setShowQuestions] = useState(false);
 
     // Create descriptive name combining element and zodiac
     const getDescriptiveName = () => {
@@ -329,6 +285,103 @@ export const QuizPreview = () => {
 
     const colors = getElementColors();
 
+    // Memoize questions to prevent regeneration on each render
+    const sortedQuestions = useMemo(() => {
+      const ageGroup = getAgeGroup(childInfo.birthDate);
+      const questions = getAgeSpecificQuestions(ageGroup);
+
+      // Get primary and secondary personalities from zodiac data
+      const primaryPersonalities = zodiacData.primary;
+      const secondaryPersonalities = zodiacData.secondary;
+
+      // Flatten questions while preserving personality mapping and prioritizing by zodiac
+      const questionData: Array<{
+        question: any;
+        personality: string;
+        personalityIndex: number;
+        questionIndex: number;
+        priority: number; // 1 = primary, 2 = secondary
+      }> = [];
+
+      if (questions) {
+        // Get primary personality questions (4 questions total, distributed across primary personalities)
+        const questionsPerPrimary = Math.ceil(4 / primaryPersonalities.length);
+        primaryPersonalities.forEach((personality, personalityIndex) => {
+          const personalityQuestions = questions[personality] || [];
+          personalityQuestions
+            .slice(0, questionsPerPrimary)
+            .forEach((question, questionIndex) => {
+              if (questionData.filter((q) => q.priority === 1).length < 4) {
+                questionData.push({
+                  question,
+                  personality,
+                  personalityIndex,
+                  questionIndex,
+                  priority: 1,
+                });
+              }
+            });
+        });
+
+        // Get secondary personality questions (2 questions total, distributed across secondary personalities)
+        const questionsPerSecondary = Math.ceil(
+          2 / secondaryPersonalities.length
+        );
+        secondaryPersonalities.forEach((personality, personalityIndex) => {
+          const personalityQuestions = questions[personality] || [];
+          personalityQuestions
+            .slice(0, questionsPerSecondary)
+            .forEach((question, questionIndex) => {
+              if (questionData.filter((q) => q.priority === 2).length < 2) {
+                questionData.push({
+                  question,
+                  personality,
+                  personalityIndex,
+                  questionIndex,
+                  priority: 2,
+                });
+              }
+            });
+        });
+      }
+
+      // Sort questions by priority (primary first, then secondary), use stable sort
+      return questionData.sort((a, b) => {
+        if (a.priority !== b.priority) {
+          return a.priority - b.priority;
+        }
+        // Use personality and question index for stable sorting instead of random
+        return (
+          a.personalityIndex - b.personalityIndex ||
+          a.questionIndex - b.questionIndex
+        );
+      });
+    }, [childInfo.birthDate, zodiacData.primary, zodiacData.secondary]);
+
+    const currentQuestionData = sortedQuestions[currentQuestionIndex];
+
+    const handleAnswer = (response: "yes" | "no" | "dont-know") => {
+      if (!currentQuestionData) return;
+
+      const newAnswer: Answer = {
+        questionId: `${currentQuestionData.personality}-${currentQuestionData.questionIndex}`,
+        response,
+      };
+
+      setAnswers([...answers, newAnswer]);
+
+      if (currentQuestionIndex < sortedQuestions.length - 1) {
+        setCurrentQuestionIndex(currentQuestionIndex + 1);
+      } else {
+        setCurrentStep("results");
+      }
+    };
+
+    const progressPercentage =
+      showQuestions && sortedQuestions.length > 0
+        ? ((currentQuestionIndex + 1) / sortedQuestions.length) * 100
+        : 0;
+
     return (
       <div
         className={`min-h-screen bg-gradient-to-br ${colors.bg} flex items-center justify-center p-4 relative overflow-hidden`}
@@ -351,127 +404,266 @@ export const QuizPreview = () => {
 
         <div className="max-w-6xl w-full relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Left side - Zodiac Image */}
-            <div className="flex justify-center lg:justify-end">
-              <div className="relative group">
-                {/* Glow effect */}
-                <div
-                  className={`absolute inset-0 bg-gradient-to-r ${colors.primary} rounded-3xl opacity-20 blur-2xl group-hover:opacity-30 transition-opacity duration-500`}
-                ></div>
-
-                {/* Main image container */}
-                <div
-                  className={`relative bg-white/10 backdrop-blur-lg rounded-3xl p-6 border border-white/20 shadow-2xl ${colors.glow} transform group-hover:scale-105 transition-all duration-500`}
-                >
-                  <img
-                    src={`/src/components/illustrations/${zodiacSign.toLowerCase()}.jpg`}
-                    alt={`${zodiacSign} zodiac illustration`}
-                    className="w-80 h-80 object-cover rounded-2xl shadow-lg"
-                  />
-
-                  {/* Floating zodiac icon */}
-                  <div className="absolute -top-6 -right-6 text-6xl animate-bounce">
-                    {zodiacData.icon}
-                  </div>
-
-                  {/* Element badge */}
+            {/* Left side - Zodiac Image & Learning Gifts */}
+            <div className="flex flex-col justify-center lg:justify-end space-y-8">
+              {/* Zodiac Image */}
+              <div className="flex justify-center lg:justify-end">
+                <div className="relative group">
+                  {/* Glow effect */}
                   <div
-                    className={`absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r ${colors.secondary} text-white px-6 py-2 rounded-full font-bold text-sm uppercase tracking-wider shadow-lg`}
+                    className={`absolute inset-0 bg-gradient-to-r ${colors.primary} rounded-3xl opacity-20 blur-2xl group-hover:opacity-30 transition-opacity duration-500`}
+                  ></div>
+
+                  {/* Main image container */}
+                  <div
+                    className={`relative bg-white/10 backdrop-blur-lg rounded-3xl p-6 border border-white/20 shadow-2xl ${colors.glow} transform group-hover:scale-105 transition-all duration-500`}
                   >
-                    {zodiacData.element} Element
+                    <img
+                      src={`/src/components/illustrations/${zodiacSign.toLowerCase()}.jpg`}
+                      alt={`${zodiacSign} zodiac illustration`}
+                      className="w-80 h-80 object-cover rounded-2xl shadow-lg"
+                    />
+
+                    {/* Floating zodiac icon */}
+                    <div className="absolute -top-6 -right-6 text-6xl animate-bounce">
+                      {zodiacData.icon}
+                    </div>
+
+                    {/* Element badge */}
+                    <div
+                      className={`absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r ${colors.secondary} text-white px-6 py-2 rounded-full font-bold text-sm uppercase tracking-wider shadow-lg`}
+                    >
+                      {zodiacData.element} Element
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Right side - Information */}
+            {/* Right side - Information or Questions */}
             <div className="space-y-8">
-              {/* Main title */}
-              <div className="text-center lg:text-left">
-                <div className="inline-block mb-4">
-                  <span
-                    className={`text-sm font-semibold ${colors.accent} uppercase tracking-widest`}
-                  >
-                    Cosmic Identity Revealed
-                  </span>
-                </div>
-                <h1
-                  className={`text-5xl lg:text-6xl font-bold text-transparent bg-gradient-to-r ${colors.primary} bg-clip-text mb-6 leading-tight`}
-                >
-                  {getDescriptiveName()}
-                </h1>
-                <p className="text-xl text-white/80 leading-relaxed max-w-lg">
-                  Your child carries the mystical essence of {zodiacSign},
-                  guided by the powerful {zodiacData.element.toLowerCase()}{" "}
-                  element. Their cosmic blueprint reveals unique gifts waiting
-                  to unfold.
-                </p>
-              </div>
-
-              {/* Traits showcase */}
-              <div className="space-y-4">
-                <h3 className="text-2xl font-bold text-white mb-4">
-                  Cosmic Traits
-                </h3>
-                <div className="grid grid-cols-2 gap-3">
-                  {zodiacData.traits.slice(0, 6).map((trait, index) => (
-                    <div
-                      key={index}
-                      className={`bg-white/10 backdrop-blur-sm rounded-xl p-3 border border-white/20 hover:bg-white/20 transition-all duration-300 transform hover:scale-105 ${colors.glow}`}
-                      style={{ animationDelay: `${index * 100}ms` }}
-                    >
-                      <span className="text-white font-medium text-sm">
-                        {trait}
+              {!showQuestions ? (
+                // Zodiac Information
+                <>
+                  {/* Main title */}
+                  <div className="text-center lg:text-left">
+                    <div className="inline-block mb-4">
+                      <span
+                        className={`text-sm font-semibold ${colors.accent} uppercase tracking-widest`}
+                      >
+                        Cosmic Identity Revealed
                       </span>
                     </div>
-                  ))}
-                </div>
-              </div>
+                    <h1
+                      className={`text-5xl lg:text-6xl font-bold text-transparent bg-gradient-to-r ${colors.primary} bg-clip-text mb-6 leading-tight`}
+                    >
+                      {getDescriptiveName()}
+                    </h1>
+                    <p className="text-xl text-white/80 leading-relaxed max-w-lg">
+                      Your child carries the mystical essence of {zodiacSign},
+                      guided by the powerful {zodiacData.element.toLowerCase()}{" "}
+                      element. Their cosmic blueprint reveals unique gifts
+                      waiting to unfold.
+                    </p>
+                  </div>
 
-              {/* Primary personalities preview */}
-              <div className="space-y-4">
-                <h3 className="text-2xl font-bold text-white mb-4">
-                  Learning Gifts
-                </h3>
-                <div className="flex flex-wrap gap-3">
-                  {zodiacData.primary.slice(0, 3).map((personality, index) => (
-                    <div
-                      key={index}
-                      className={`bg-gradient-to-r ${colors.secondary} text-white px-4 py-2 rounded-full font-semibold text-sm capitalize shadow-lg transform hover:scale-105 transition-all duration-300`}
+                  {/* Continue button */}
+                  <div className="pt-6">
+                    <button
+                      onClick={() => setShowQuestions(true)}
+                      className={`group relative w-full lg:w-auto bg-gradient-to-r ${colors.primary} hover:shadow-2xl text-white font-bold py-6 px-12 rounded-2xl text-xl transform hover:scale-105 transition-all duration-300 overflow-hidden`}
                     >
-                      {personality}
+                      {/* Button glow effect */}
+                      <div
+                        className={`absolute inset-0 bg-gradient-to-r ${colors.primary} opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300`}
+                      ></div>
+
+                      <span className="relative z-10 flex items-center justify-center gap-3">
+                        <span>Discover {zodiacSign} Learning Magic</span>
+                        <span className="text-2xl animate-pulse">✨</span>
+                      </span>
+
+                      {/* Shine effect */}
+                      <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"></div>
+                    </button>
+                  </div>
+                </>
+              ) : (
+                // Questions Section
+                <>
+                  {/* Header with zodiac context */}
+                  <div className="text-center lg:text-left">
+                    <div className="inline-flex items-center gap-4 mb-6">
+                      <div>
+                        <h2
+                          className={`text-2xl font-bold text-transparent bg-gradient-to-r ${colors.primary} bg-clip-text capitalize`}
+                        >
+                          {zodiacSign} Discovery
+                        </h2>
+                        <p className={`${colors.accent} text-sm font-medium`}>
+                          Exploring{" "}
+                          {currentQuestionData?.personality || "personality"}{" "}
+                          traits
+                        </p>
+                      </div>
+                      <span className="text-4xl animate-pulse">
+                        {zodiacData.icon}
+                      </span>
                     </div>
-                  ))}
-                  {zodiacData.primary.length > 3 && (
-                    <div
-                      className={`bg-white/20 text-white px-4 py-2 rounded-full font-semibold text-sm ${colors.accent}`}
-                    >
-                      +{zodiacData.primary.length - 3} more
+                  </div>
+
+                  {/* Progress indicator */}
+                  {sortedQuestions.length > 0 && (
+                    <div className="mb-8">
+                      <div className="flex justify-between items-center text-white/80 text-sm mb-4">
+                        <div className="flex items-center gap-2">
+                          <div
+                            className={`w-3 h-3 rounded-full bg-gradient-to-r ${colors.primary}`}
+                          ></div>
+                          <span className="font-medium">
+                            Question {currentQuestionIndex + 1} of{" "}
+                            {sortedQuestions.length}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="font-medium">
+                            {Math.round(progressPercentage)}% Complete
+                          </span>
+                          <div
+                            className={`w-3 h-3 rounded-full bg-gradient-to-r ${colors.secondary}`}
+                          ></div>
+                        </div>
+                      </div>
+
+                      {/* Progress bar with glow */}
+                      <div className="relative">
+                        <div className="w-full bg-white/10 rounded-full h-3 backdrop-blur-sm border border-white/20">
+                          <div
+                            className={`bg-gradient-to-r ${colors.primary} h-3 rounded-full transition-all duration-700 ease-out relative overflow-hidden`}
+                            style={{ width: `${progressPercentage}%` }}
+                          >
+                            {/* Shine effect on progress bar */}
+                            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pulse"></div>
+                          </div>
+                        </div>
+                        {/* Progress glow */}
+                        <div
+                          className={`absolute top-0 h-3 bg-gradient-to-r ${colors.primary} rounded-full blur-sm opacity-30 transition-all duration-700`}
+                          style={{ width: `${progressPercentage}%` }}
+                        ></div>
+                      </div>
                     </div>
                   )}
-                </div>
-              </div>
 
-              {/* Continue button */}
-              <div className="pt-6">
-                <button
-                  onClick={() => setCurrentStep("questions")}
-                  className={`group relative w-full lg:w-auto bg-gradient-to-r ${colors.primary} hover:shadow-2xl text-white font-bold py-6 px-12 rounded-2xl text-xl transform hover:scale-105 transition-all duration-300 overflow-hidden`}
-                >
-                  {/* Button glow effect */}
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-r ${colors.primary} opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300`}
-                  ></div>
+                  {/* Question content */}
+                  {currentQuestionData && (
+                    <div
+                      className={`bg-white/10 backdrop-blur-xl rounded-3xl p-6 lg:p-8 border border-white/20 shadow-2xl ${colors.glow} relative overflow-hidden`}
+                    >
+                      {/* Card background effect */}
+                      <div
+                        className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${colors.primary}`}
+                      ></div>
 
-                  <span className="relative z-10 flex items-center justify-center gap-3">
-                    <span>Discover {zodiacSign} Learning Magic</span>
-                    <span className="text-2xl animate-pulse">✨</span>
-                  </span>
+                      {/* Question header */}
+                      <div className="text-center mb-8">
+                        <div className="inline-block mb-4">
+                          <div
+                            className={`w-16 h-16 bg-gradient-to-r ${colors.primary} rounded-full flex items-center justify-center text-2xl shadow-lg ${colors.glow}`}
+                          >
+                            🔮
+                          </div>
+                        </div>
 
-                  {/* Shine effect */}
-                  <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"></div>
-                </button>
-              </div>
+                        <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4 leading-tight">
+                          {currentQuestionData.question.scenario}
+                        </h3>
+
+                        <div
+                          className={`inline-block bg-white/10 backdrop-blur-sm rounded-2xl px-4 py-2 border border-white/20 ${colors.glow}`}
+                        >
+                          <p
+                            className={`${colors.accent} italic font-medium text-sm`}
+                          >
+                            {currentQuestionData.question.prediction.replace(
+                              "{name}",
+                              "your child"
+                            )}
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Question text */}
+                      <div className="mb-8">
+                        <p className="text-lg lg:text-xl text-white text-center leading-relaxed font-medium">
+                          {currentQuestionData.question.question.replace(
+                            "{name}",
+                            "your child"
+                          )}
+                        </p>
+                      </div>
+
+                      {/* Answer options */}
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        {[
+                          {
+                            value: "yes",
+                            emoji: "✅",
+                            label: "Yes",
+                            gradient: "from-emerald-500 to-green-600",
+                            hoverGradient: "from-emerald-400 to-green-500",
+                            glow: "shadow-emerald-500/25",
+                          },
+                          {
+                            value: "no",
+                            emoji: "❌",
+                            label: "No",
+                            gradient: "from-red-500 to-rose-600",
+                            hoverGradient: "from-red-400 to-rose-500",
+                            glow: "shadow-red-500/25",
+                          },
+                          {
+                            value: "dont-know",
+                            emoji: "🤷‍♀️",
+                            label: "I'm not sure",
+                            gradient: colors.secondary.replace("to-", "to-"),
+                            hoverGradient: colors.primary.replace("to-", "to-"),
+                            glow: colors.glow,
+                          },
+                        ].map((option, index) => (
+                          <button
+                            key={option.value}
+                            onClick={() =>
+                              handleAnswer(
+                                option.value as "yes" | "no" | "dont-know"
+                              )
+                            }
+                            className={`group relative bg-gradient-to-r ${option.gradient} hover:bg-gradient-to-r hover:${option.hoverGradient} text-white font-bold py-3 px-4 rounded-2xl text-sm sm:text-base transform hover:scale-105 transition-all duration-300 shadow-xl ${option.glow} hover:shadow-2xl overflow-hidden flex-1`}
+                            style={{ animationDelay: `${index * 100}ms` }}
+                          >
+                            {/* Button glow effect */}
+                            <div
+                              className={`absolute inset-0 bg-gradient-to-r ${option.gradient} opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300`}
+                            ></div>
+
+                            <div className="relative z-10 flex items-center justify-center gap-2">
+                              <div className="text-lg group-hover:scale-110 transition-transform duration-200">
+                                {option.emoji}
+                              </div>
+                              <span className="font-semibold">
+                                {option.label}
+                              </span>
+                            </div>
+
+                            {/* Shine effect */}
+                            <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"></div>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
             </div>
           </div>
 
@@ -490,7 +682,7 @@ export const QuizPreview = () => {
                   className={`w-3 h-3 rounded-full bg-gradient-to-r ${colors.secondary}`}
                 ></div>
                 <span className="text-sm font-medium">
-                  Personalized Journey
+                  {showQuestions ? "AI Analysis" : "Personalized Journey"}
                 </span>
               </div>
               <div className="w-px h-4 bg-white/30"></div>
@@ -498,7 +690,9 @@ export const QuizPreview = () => {
                 <div
                   className={`w-3 h-3 rounded-full bg-gradient-to-r ${colors.primary}`}
                 ></div>
-                <span className="text-sm font-medium">Magical Discovery</span>
+                <span className="text-sm font-medium">
+                  {showQuestions ? "Smart Discovery" : "Magical Discovery"}
+                </span>
               </div>
             </div>
           </div>
@@ -781,7 +975,7 @@ export const QuizPreview = () => {
             </div>
 
             {/* Answer options */}
-            <div className="grid gap-4 max-w-2xl mx-auto">
+            <div className="flex flex-col sm:flex-row gap-3">
               {[
                 {
                   value: "yes",
@@ -813,7 +1007,7 @@ export const QuizPreview = () => {
                   onClick={() =>
                     handleAnswer(option.value as "yes" | "no" | "dont-know")
                   }
-                  className={`group relative bg-gradient-to-r ${option.gradient} hover:bg-gradient-to-r hover:${option.hoverGradient} text-white font-bold py-6 px-8 rounded-2xl text-lg transform hover:scale-105 transition-all duration-300 shadow-xl ${option.glow} hover:shadow-2xl overflow-hidden`}
+                  className={`group relative bg-gradient-to-r ${option.gradient} hover:bg-gradient-to-r hover:${option.hoverGradient} text-white font-bold py-3 px-4 rounded-2xl text-sm sm:text-base transform hover:scale-105 transition-all duration-300 shadow-xl ${option.glow} hover:shadow-2xl overflow-hidden flex-1`}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
                   {/* Button glow effect */}
@@ -821,18 +1015,11 @@ export const QuizPreview = () => {
                     className={`absolute inset-0 bg-gradient-to-r ${option.gradient} opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300`}
                   ></div>
 
-                  <div className="relative z-10 flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div className="text-3xl group-hover:scale-110 transition-transform duration-200">
-                        {option.emoji}
-                      </div>
-                      <span className="text-xl font-semibold">
-                        {option.label}
-                      </span>
+                  <div className="relative z-10 flex items-center justify-center gap-2">
+                    <div className="text-lg group-hover:scale-110 transition-transform duration-200">
+                      {option.emoji}
                     </div>
-                    <div className="text-white opacity-60 group-hover:opacity-100 transition-all duration-200 transform group-hover:translate-x-1">
-                      →
-                    </div>
+                    <span className="font-semibold">{option.label}</span>
                   </div>
 
                   {/* Shine effect */}
@@ -1189,7 +1376,7 @@ export const QuizPreview = () => {
               {/* Secondary action link */}
               <button
                 onClick={() => {
-                  setCurrentStep("intro");
+                  setCurrentStep("basic-info");
                   setAnswers([]);
                   setCurrentQuestionIndex(0);
                   setChildInfo({
@@ -1236,8 +1423,6 @@ export const QuizPreview = () => {
 
   // Render current step
   switch (currentStep) {
-    case "intro":
-      return <IntroStep />;
     case "basic-info":
       return <BasicInfoStep />;
     case "zodiac-info":
@@ -1247,6 +1432,6 @@ export const QuizPreview = () => {
     case "results":
       return <ResultsStep />;
     default:
-      return <IntroStep />;
+      return <BasicInfoStep />;
   }
 };
