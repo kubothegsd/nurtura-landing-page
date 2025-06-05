@@ -2,6 +2,36 @@ import React, { useState, useMemo } from "react";
 import { getAgeGroup, getZodiacSign, getAgeSpecificQuestions } from "./logic";
 import { zodiacSigns } from "./ageGroupData";
 
+// Import zodiac images
+import ariesImg from "/src/assets/images/aries.jpg";
+import taurusImg from "/src/assets/images/taurus.jpg";
+import geminiImg from "/src/assets/images/gemini.jpg";
+import cancerImg from "/src/assets/images/cancer.jpg";
+import leoImg from "/src/assets/images/leo.jpg";
+import virgoImg from "/src/assets/images/virgo.jpg";
+import libraImg from "/src/assets/images/libra.jpg";
+import scorpioImg from "/src/assets/images/scorpio.jpg";
+import sagittariusImg from "/src/assets/images/sagittarius.jpg";
+import capricornImg from "/src/assets/images/capricorn.jpg";
+import aquariusImg from "/src/assets/images/aquarius.jpg";
+import piscesImg from "/src/assets/images/pisces.jpg";
+
+// Create zodiac images mapping
+const zodiacImages = {
+  aries: ariesImg,
+  taurus: taurusImg,
+  gemini: geminiImg,
+  cancer: cancerImg,
+  leo: leoImg,
+  virgo: virgoImg,
+  libra: libraImg,
+  scorpio: scorpioImg,
+  sagittarius: sagittariusImg,
+  capricorn: capricornImg,
+  aquarius: aquariusImg,
+  pisces: piscesImg,
+};
+
 interface ChildInfo {
   gender: "boy" | "girl";
   birthDate: Date;
@@ -193,7 +223,11 @@ export const ZodiacInfoStep: React.FC<ZodiacInfoStepProps> = ({
                   className={`relative bg-white/10 backdrop-blur-lg rounded-3xl p-6 border border-white/20 shadow-2xl ${colors.glow} transform group-hover:scale-105 transition-all duration-500`}
                 >
                   <img
-                    src={`/src/components/illustrations/${zodiacSign.toLowerCase()}.jpg`}
+                    src={
+                      zodiacImages[
+                        zodiacSign.toLowerCase() as keyof typeof zodiacImages
+                      ]
+                    }
                     alt={`${zodiacSign} zodiac illustration`}
                     className="w-80 h-80 object-cover rounded-2xl shadow-lg"
                   />
