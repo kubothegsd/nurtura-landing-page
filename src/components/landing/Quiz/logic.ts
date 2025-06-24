@@ -3,8 +3,8 @@ import {
   namesByAgeGroup,
   zodiacSigns,
   ageSpecificQuestionsByAgeGroup,
-} from "./ageGroupData";
-import type { AgeGroup, Personality, Zodiac, ZodiacSign } from "./ageGroupData";
+} from './ageGroupData';
+import type { AgeGroup, Personality, Zodiac, ZodiacSign } from './ageGroupData';
 
 export const getZodiacSign = (birthDate: Date): Zodiac => {
   const month = birthDate.getMonth() + 1; // JavaScript months are 0-based
@@ -12,7 +12,7 @@ export const getZodiacSign = (birthDate: Date): Zodiac => {
 
   for (const [sign, data] of Object.entries(zodiacSigns) as [
     Zodiac,
-    ZodiacSign
+    ZodiacSign,
   ][]) {
     const [startMonth, startDay, endMonth, endDay] = data.dates;
 
@@ -30,7 +30,7 @@ export const getZodiacSign = (birthDate: Date): Zodiac => {
     }
   }
 
-  return "capricorn"; // Default to Capricorn if no match found (handles Dec 22-31)
+  return 'capricorn'; // Default to Capricorn if no match found (handles Dec 22-31)
 };
 
 export const getAgeGroup = (birthDate: Date): AgeGroup => {
@@ -40,15 +40,15 @@ export const getAgeGroup = (birthDate: Date): AgeGroup => {
     (today.getMonth() - birthDate.getMonth());
 
   if (ageInMonths < 18) {
-    return "infant";
+    return 'infant';
   } else if (ageInMonths < 36) {
-    return "toddler";
+    return 'toddler';
   } else if (ageInMonths < 48) {
-    return "earlyPreschool";
+    return 'earlyPreschool';
   } else if (ageInMonths < 60) {
-    return "preschool";
+    return 'preschool';
   } else {
-    return "preK";
+    return 'preK';
   }
 };
 

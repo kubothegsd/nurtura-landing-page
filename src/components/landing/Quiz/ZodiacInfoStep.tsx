@@ -1,20 +1,20 @@
-import React, { useState, useMemo } from "react";
-import { getAgeGroup, getZodiacSign, getAgeSpecificQuestions } from "./logic";
-import { zodiacSigns } from "./ageGroupData";
+import React, { useState, useMemo } from 'react';
+import { getAgeGroup, getZodiacSign, getAgeSpecificQuestions } from './logic';
+import { zodiacSigns } from './ageGroupData';
 
 // Import zodiac images
-import ariesImg from "/src/assets/images/aries.jpg";
-import taurusImg from "/src/assets/images/taurus.jpg";
-import geminiImg from "/src/assets/images/gemini.jpg";
-import cancerImg from "/src/assets/images/cancer.jpg";
-import leoImg from "/src/assets/images/leo.jpg";
-import virgoImg from "/src/assets/images/virgo.jpg";
-import libraImg from "/src/assets/images/libra.jpg";
-import scorpioImg from "/src/assets/images/scorpio.jpg";
-import sagittariusImg from "/src/assets/images/sagittarius.jpg";
-import capricornImg from "/src/assets/images/capricorn.jpg";
-import aquariusImg from "/src/assets/images/aquarius.jpg";
-import piscesImg from "/src/assets/images/pisces.jpg";
+import ariesImg from '/src/assets/images/aries.jpg';
+import taurusImg from '/src/assets/images/taurus.jpg';
+import geminiImg from '/src/assets/images/gemini.jpg';
+import cancerImg from '/src/assets/images/cancer.jpg';
+import leoImg from '/src/assets/images/leo.jpg';
+import virgoImg from '/src/assets/images/virgo.jpg';
+import libraImg from '/src/assets/images/libra.jpg';
+import scorpioImg from '/src/assets/images/scorpio.jpg';
+import sagittariusImg from '/src/assets/images/sagittarius.jpg';
+import capricornImg from '/src/assets/images/capricorn.jpg';
+import aquariusImg from '/src/assets/images/aquarius.jpg';
+import piscesImg from '/src/assets/images/pisces.jpg';
 
 // Create zodiac images mapping
 const zodiacImages = {
@@ -33,16 +33,16 @@ const zodiacImages = {
 };
 
 interface ChildInfo {
-  gender: "boy" | "girl";
+  gender: 'boy' | 'girl';
   birthDate: Date;
 }
 
 interface Answer {
   questionId: string;
-  response: "yes" | "no" | "dont-know";
+  response: 'yes' | 'no' | 'dont-know';
 }
 
-type QuizStep = "basic-info" | "zodiac-info" | "results";
+type QuizStep = 'basic-info' | 'zodiac-info' | 'results';
 
 interface ElementColors {
   primary: string;
@@ -115,7 +115,7 @@ export const ZodiacInfoStep: React.FC<ZodiacInfoStepProps> = ({
         personalityQuestions
           .slice(0, questionsPerPrimary)
           .forEach((question, questionIndex) => {
-            if (questionData.filter((q) => q.priority === 1).length < 4) {
+            if (questionData.filter(q => q.priority === 1).length < 4) {
               questionData.push({
                 question,
                 personality,
@@ -136,7 +136,7 @@ export const ZodiacInfoStep: React.FC<ZodiacInfoStepProps> = ({
         personalityQuestions
           .slice(0, questionsPerSecondary)
           .forEach((question, questionIndex) => {
-            if (questionData.filter((q) => q.priority === 2).length < 2) {
+            if (questionData.filter(q => q.priority === 2).length < 2) {
               questionData.push({
                 question,
                 personality,
@@ -164,7 +164,7 @@ export const ZodiacInfoStep: React.FC<ZodiacInfoStepProps> = ({
 
   const currentQuestionData = sortedQuestions[currentQuestionIndex];
 
-  const handleAnswer = (response: "yes" | "no" | "dont-know") => {
+  const handleAnswer = (response: 'yes' | 'no' | 'dont-know') => {
     if (!currentQuestionData) return;
 
     const newAnswer: Answer = {
@@ -177,7 +177,7 @@ export const ZodiacInfoStep: React.FC<ZodiacInfoStepProps> = ({
     if (currentQuestionIndex < sortedQuestions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
     } else {
-      setCurrentStep("results");
+      setCurrentStep('results');
     }
   };
 
@@ -191,7 +191,7 @@ export const ZodiacInfoStep: React.FC<ZodiacInfoStepProps> = ({
       className={`min-h-screen bg-gradient-to-br ${colors.bg} flex items-center justify-center p-4 relative overflow-hidden`}
     >
       {/* Animated background elements */}
-      <div className="absolute inset-0">
+      <div className='absolute inset-0'>
         <div
           className={`absolute top-20 left-20 w-32 h-32 bg-gradient-to-r ${colors.primary} rounded-full opacity-10 animate-pulse`}
         ></div>
@@ -206,13 +206,13 @@ export const ZodiacInfoStep: React.FC<ZodiacInfoStepProps> = ({
         ></div>
       </div>
 
-      <div className="max-w-6xl w-full relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className='max-w-6xl w-full relative z-10'>
+        <div className='grid lg:grid-cols-2 gap-12 items-center'>
           {/* Left side - Zodiac Image & Learning Gifts */}
-          <div className="flex flex-col justify-center lg:justify-end space-y-8">
+          <div className='flex flex-col justify-center lg:justify-end space-y-8'>
             {/* Zodiac Image */}
-            <div className="flex justify-center lg:justify-end">
-              <div className="relative group">
+            <div className='flex justify-center lg:justify-end'>
+              <div className='relative group'>
                 {/* Glow effect */}
                 <div
                   className={`absolute inset-0 bg-gradient-to-r ${colors.primary} rounded-3xl opacity-20 blur-2xl group-hover:opacity-30 transition-opacity duration-500`}
@@ -229,11 +229,11 @@ export const ZodiacInfoStep: React.FC<ZodiacInfoStepProps> = ({
                       ]
                     }
                     alt={`${zodiacSign} zodiac illustration`}
-                    className="w-80 h-80 object-cover rounded-2xl shadow-lg"
+                    className='w-80 h-80 object-cover rounded-2xl shadow-lg'
                   />
 
                   {/* Floating zodiac icon */}
-                  <div className="absolute -top-6 -right-6 text-6xl animate-bounce">
+                  <div className='absolute -top-6 -right-6 text-6xl animate-bounce'>
                     {zodiacData.icon}
                   </div>
 
@@ -249,13 +249,13 @@ export const ZodiacInfoStep: React.FC<ZodiacInfoStepProps> = ({
           </div>
 
           {/* Right side - Information or Questions */}
-          <div className="space-y-8">
+          <div className='space-y-8'>
             {!showQuestions ? (
               // Zodiac Information
               <>
                 {/* Main title */}
-                <div className="text-center lg:text-left">
-                  <div className="inline-block mb-4">
+                <div className='text-center lg:text-left'>
+                  <div className='inline-block mb-4'>
                     <span
                       className={`text-sm font-semibold ${colors.accent} uppercase tracking-widest`}
                     >
@@ -267,16 +267,16 @@ export const ZodiacInfoStep: React.FC<ZodiacInfoStepProps> = ({
                   >
                     {getDescriptiveName()}
                   </h1>
-                  <p className="text-xl text-white/80 leading-relaxed max-w-lg">
+                  <p className='text-xl text-white/80 leading-relaxed max-w-lg'>
                     Your child carries the mystical essence of {zodiacSign},
-                    guided by the powerful {zodiacData.element.toLowerCase()}{" "}
+                    guided by the powerful {zodiacData.element.toLowerCase()}{' '}
                     element. Their cosmic blueprint reveals unique gifts waiting
                     to unfold.
                   </p>
                 </div>
 
                 {/* Continue button */}
-                <div className="pt-6">
+                <div className='pt-6'>
                   <button
                     onClick={() => setShowQuestions(true)}
                     className={`group relative w-full lg:w-auto bg-gradient-to-r ${colors.primary} hover:shadow-2xl text-white font-bold py-6 px-12 rounded-2xl text-xl transform hover:scale-105 transition-all duration-300 overflow-hidden`}
@@ -286,13 +286,13 @@ export const ZodiacInfoStep: React.FC<ZodiacInfoStepProps> = ({
                       className={`absolute inset-0 bg-gradient-to-r ${colors.primary} opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300`}
                     ></div>
 
-                    <span className="relative z-10 flex items-center justify-center gap-3">
+                    <span className='relative z-10 flex items-center justify-center gap-3'>
                       <span>Discover {zodiacSign} Learning Magic</span>
-                      <span className="text-2xl animate-pulse">✨</span>
+                      <span className='text-2xl animate-pulse'>✨</span>
                     </span>
 
                     {/* Shine effect */}
-                    <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"></div>
+                    <div className='absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12'></div>
                   </button>
                 </div>
               </>
@@ -300,8 +300,8 @@ export const ZodiacInfoStep: React.FC<ZodiacInfoStepProps> = ({
               // Questions Section
               <>
                 {/* Header with zodiac context */}
-                <div className="text-center lg:text-left">
-                  <div className="inline-flex items-center gap-4 mb-6">
+                <div className='text-center lg:text-left'>
+                  <div className='inline-flex items-center gap-4 mb-6'>
                     <div>
                       <h2
                         className={`text-2xl font-bold text-transparent bg-gradient-to-r ${colors.primary} bg-clip-text capitalize`}
@@ -309,12 +309,12 @@ export const ZodiacInfoStep: React.FC<ZodiacInfoStepProps> = ({
                         {zodiacSign} Discovery
                       </h2>
                       <p className={`${colors.accent} text-sm font-medium`}>
-                        Exploring{" "}
-                        {currentQuestionData?.personality || "personality"}{" "}
+                        Exploring{' '}
+                        {currentQuestionData?.personality || 'personality'}{' '}
                         traits
                       </p>
                     </div>
-                    <span className="text-4xl animate-pulse">
+                    <span className='text-4xl animate-pulse'>
                       {zodiacData.icon}
                     </span>
                   </div>
@@ -322,19 +322,19 @@ export const ZodiacInfoStep: React.FC<ZodiacInfoStepProps> = ({
 
                 {/* Progress indicator */}
                 {sortedQuestions.length > 0 && (
-                  <div className="mb-8">
-                    <div className="flex justify-between items-center text-white/80 text-sm mb-4">
-                      <div className="flex items-center gap-2">
+                  <div className='mb-8'>
+                    <div className='flex justify-between items-center text-white/80 text-sm mb-4'>
+                      <div className='flex items-center gap-2'>
                         <div
                           className={`w-3 h-3 rounded-full bg-gradient-to-r ${colors.primary}`}
                         ></div>
-                        <span className="font-medium">
-                          Question {currentQuestionIndex + 1} of{" "}
+                        <span className='font-medium'>
+                          Question {currentQuestionIndex + 1} of{' '}
                           {sortedQuestions.length}
                         </span>
                       </div>
-                      <div className="flex items-center gap-2">
-                        <span className="font-medium">
+                      <div className='flex items-center gap-2'>
+                        <span className='font-medium'>
                           {Math.round(progressPercentage)}% Complete
                         </span>
                         <div
@@ -344,14 +344,14 @@ export const ZodiacInfoStep: React.FC<ZodiacInfoStepProps> = ({
                     </div>
 
                     {/* Progress bar with glow */}
-                    <div className="relative">
-                      <div className="w-full bg-white/10 rounded-full h-3 backdrop-blur-sm border border-white/20">
+                    <div className='relative'>
+                      <div className='w-full bg-white/10 rounded-full h-3 backdrop-blur-sm border border-white/20'>
                         <div
                           className={`bg-gradient-to-r ${colors.primary} h-3 rounded-full transition-all duration-700 ease-out relative overflow-hidden`}
                           style={{ width: `${progressPercentage}%` }}
                         >
                           {/* Shine effect on progress bar */}
-                          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pulse"></div>
+                          <div className='absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-pulse'></div>
                         </div>
                       </div>
                       {/* Progress glow */}
@@ -374,8 +374,8 @@ export const ZodiacInfoStep: React.FC<ZodiacInfoStepProps> = ({
                     ></div>
 
                     {/* Question header */}
-                    <div className="text-center mb-8">
-                      <div className="inline-block mb-4">
+                    <div className='text-center mb-8'>
+                      <div className='inline-block mb-4'>
                         <div
                           className={`w-16 h-16 bg-gradient-to-r ${colors.primary} rounded-full flex items-center justify-center text-2xl shadow-lg ${colors.glow}`}
                         >
@@ -383,7 +383,7 @@ export const ZodiacInfoStep: React.FC<ZodiacInfoStepProps> = ({
                         </div>
                       </div>
 
-                      <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4 leading-tight">
+                      <h3 className='text-2xl lg:text-3xl font-bold text-white mb-4 leading-tight'>
                         {currentQuestionData.question.scenario}
                       </h3>
 
@@ -394,48 +394,48 @@ export const ZodiacInfoStep: React.FC<ZodiacInfoStepProps> = ({
                           className={`${colors.accent} italic font-medium text-sm`}
                         >
                           {currentQuestionData.question.prediction.replace(
-                            "{name}",
-                            "your child"
+                            '{name}',
+                            'your child'
                           )}
                         </p>
                       </div>
                     </div>
 
                     {/* Question text */}
-                    <div className="mb-8">
-                      <p className="text-lg lg:text-xl text-white text-center leading-relaxed font-medium">
+                    <div className='mb-8'>
+                      <p className='text-lg lg:text-xl text-white text-center leading-relaxed font-medium'>
                         {currentQuestionData.question.question.replace(
-                          "{name}",
-                          "your child"
+                          '{name}',
+                          'your child'
                         )}
                       </p>
                     </div>
 
                     {/* Answer options */}
-                    <div className="flex flex-col sm:flex-row gap-3">
+                    <div className='flex flex-col sm:flex-row gap-3'>
                       {[
                         {
-                          value: "yes",
-                          emoji: "✅",
-                          label: "Yes",
-                          gradient: "from-emerald-500 to-green-600",
-                          hoverGradient: "from-emerald-400 to-green-500",
-                          glow: "shadow-emerald-500/25",
+                          value: 'yes',
+                          emoji: '✅',
+                          label: 'Yes',
+                          gradient: 'from-emerald-500 to-green-600',
+                          hoverGradient: 'from-emerald-400 to-green-500',
+                          glow: 'shadow-emerald-500/25',
                         },
                         {
-                          value: "no",
-                          emoji: "❌",
-                          label: "No",
-                          gradient: "from-red-500 to-rose-600",
-                          hoverGradient: "from-red-400 to-rose-500",
-                          glow: "shadow-red-500/25",
+                          value: 'no',
+                          emoji: '❌',
+                          label: 'No',
+                          gradient: 'from-red-500 to-rose-600',
+                          hoverGradient: 'from-red-400 to-rose-500',
+                          glow: 'shadow-red-500/25',
                         },
                         {
-                          value: "dont-know",
-                          emoji: "🤷‍♀️",
+                          value: 'dont-know',
+                          emoji: '🤷‍♀️',
                           label: "I'm not sure",
-                          gradient: colors.secondary.replace("to-", "to-"),
-                          hoverGradient: colors.primary.replace("to-", "to-"),
+                          gradient: colors.secondary.replace('to-', 'to-'),
+                          hoverGradient: colors.primary.replace('to-', 'to-'),
                           glow: colors.glow,
                         },
                       ].map((option, index) => (
@@ -443,7 +443,7 @@ export const ZodiacInfoStep: React.FC<ZodiacInfoStepProps> = ({
                           key={option.value}
                           onClick={() =>
                             handleAnswer(
-                              option.value as "yes" | "no" | "dont-know"
+                              option.value as 'yes' | 'no' | 'dont-know'
                             )
                           }
                           className={`group relative bg-gradient-to-r ${option.gradient} hover:bg-gradient-to-r hover:${option.hoverGradient} text-white font-bold py-3 px-4 rounded-2xl text-sm sm:text-base transform hover:scale-105 transition-all duration-300 shadow-xl ${option.glow} hover:shadow-2xl overflow-hidden flex-1`}
@@ -454,17 +454,17 @@ export const ZodiacInfoStep: React.FC<ZodiacInfoStepProps> = ({
                             className={`absolute inset-0 bg-gradient-to-r ${option.gradient} opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300`}
                           ></div>
 
-                          <div className="relative z-10 flex items-center justify-center gap-2">
-                            <div className="text-lg group-hover:scale-110 transition-transform duration-200">
+                          <div className='relative z-10 flex items-center justify-center gap-2'>
+                            <div className='text-lg group-hover:scale-110 transition-transform duration-200'>
                               {option.emoji}
                             </div>
-                            <span className="font-semibold">
+                            <span className='font-semibold'>
                               {option.label}
                             </span>
                           </div>
 
                           {/* Shine effect */}
-                          <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"></div>
+                          <div className='absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12'></div>
                         </button>
                       ))}
                     </div>
@@ -476,30 +476,30 @@ export const ZodiacInfoStep: React.FC<ZodiacInfoStepProps> = ({
         </div>
 
         {/* Bottom decorative elements */}
-        <div className="mt-16 text-center">
-          <div className="inline-flex items-center gap-6 text-white/60">
-            <div className="flex items-center gap-2">
+        <div className='mt-16 text-center'>
+          <div className='inline-flex items-center gap-6 text-white/60'>
+            <div className='flex items-center gap-2'>
               <div
                 className={`w-3 h-3 rounded-full bg-gradient-to-r ${colors.primary}`}
               ></div>
-              <span className="text-sm font-medium">Cosmic Alignment</span>
+              <span className='text-sm font-medium'>Cosmic Alignment</span>
             </div>
-            <div className="w-px h-4 bg-white/30"></div>
-            <div className="flex items-center gap-2">
+            <div className='w-px h-4 bg-white/30'></div>
+            <div className='flex items-center gap-2'>
               <div
                 className={`w-3 h-3 rounded-full bg-gradient-to-r ${colors.secondary}`}
               ></div>
-              <span className="text-sm font-medium">
-                {showQuestions ? "AI Analysis" : "Personalized Journey"}
+              <span className='text-sm font-medium'>
+                {showQuestions ? 'AI Analysis' : 'Personalized Journey'}
               </span>
             </div>
-            <div className="w-px h-4 bg-white/30"></div>
-            <div className="flex items-center gap-2">
+            <div className='w-px h-4 bg-white/30'></div>
+            <div className='flex items-center gap-2'>
               <div
                 className={`w-3 h-3 rounded-full bg-gradient-to-r ${colors.primary}`}
               ></div>
-              <span className="text-sm font-medium">
-                {showQuestions ? "Smart Discovery" : "Magical Discovery"}
+              <span className='text-sm font-medium'>
+                {showQuestions ? 'Smart Discovery' : 'Magical Discovery'}
               </span>
             </div>
           </div>

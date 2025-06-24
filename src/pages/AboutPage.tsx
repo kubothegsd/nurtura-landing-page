@@ -1,20 +1,20 @@
-import { motion } from "framer-motion";
+import { motion } from 'framer-motion';
 
 const AboutPage = () => {
   return (
-    <div className="min-h-screen pt-20 bg-brand-blush">
-      <div className="container mx-auto px-4 py-16">
+    <div className='min-h-screen pt-20 bg-brand-blush'>
+      <div className='container mx-auto px-4 py-16'>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="max-w-4xl mx-auto"
+          className='max-w-4xl mx-auto'
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-brand-blue mb-8">
+          <h1 className='text-4xl md:text-5xl font-bold text-brand-blue mb-8'>
             How AI Transforms Family Discovery
           </h1>
 
-          <div className="space-y-8 text-brand-turquoise text-lg leading-relaxed">
+          <div className='space-y-8 text-brand-turquoise text-lg leading-relaxed'>
             <p>
               At ParentAI, we believe every child is unique, and discovering
               their potential should be both exciting and meaningful. That's why
@@ -40,43 +40,43 @@ const AboutPage = () => {
               child while building stronger bonds through meaningful play.
             </p>
 
-            <div className="bg-white/80 backdrop-blur-lg rounded-2xl p-8 mt-12">
-              <h2 className="text-2xl font-bold text-brand-blue mb-6">
+            <div className='bg-white/80 backdrop-blur-lg rounded-2xl p-8 mt-12'>
+              <h2 className='text-2xl font-bold text-brand-blue mb-6'>
                 Our AI-Powered Approach
               </h2>
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className='grid md:grid-cols-2 gap-6'>
                 <div>
-                  <h3 className="font-bold text-brand-mint mb-2">
+                  <h3 className='font-bold text-brand-mint mb-2'>
                     🤖 Smart Analysis
                   </h3>
-                  <p className="text-sm">
+                  <p className='text-sm'>
                     AI continuously learns from your child's preferences and
                     developmental patterns
                   </p>
                 </div>
                 <div>
-                  <h3 className="font-bold text-brand-mint mb-2">
+                  <h3 className='font-bold text-brand-mint mb-2'>
                     🎯 Personalized Activities
                   </h3>
-                  <p className="text-sm">
+                  <p className='text-sm'>
                     Every suggestion is tailored to your child's unique
                     personality and interests
                   </p>
                 </div>
                 <div>
-                  <h3 className="font-bold text-brand-mint mb-2">
+                  <h3 className='font-bold text-brand-mint mb-2'>
                     📈 Adaptive Learning
                   </h3>
-                  <p className="text-sm">
+                  <p className='text-sm'>
                     Our AI gets smarter over time, improving recommendations as
                     your child grows
                   </p>
                 </div>
                 <div>
-                  <h3 className="font-bold text-brand-mint mb-2">
+                  <h3 className='font-bold text-brand-mint mb-2'>
                     💝 Family Connection
                   </h3>
-                  <p className="text-sm">
+                  <p className='text-sm'>
                     Focus on building stronger relationships through AI-guided
                     discovery and play
                   </p>
