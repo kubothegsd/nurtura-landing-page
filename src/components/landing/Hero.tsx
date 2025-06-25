@@ -5,19 +5,27 @@ export const Hero = () => {
   return (
     <section
       className={clsx(
-        'min-h-screen',
+        'min-h-[calc(100vh-80px)]',
         'flex items-center',
-        'overflow-hidden',
-        'bg-gradient-to-br from-brand-blush via-white to-brand-mint/10'
+        'overflow-hidden'
       )}
     >
+      <div
+        className='absolute bottom-0 left-0 -translate-x-1/4 translate-y-1/2 w-[600px] h-[600px] rounded-full'
+        style={{
+          backgroundColor: '#FFD988',
+          opacity: '0.2',
+          filter: 'blur(100px)',
+          zIndex: 0,
+        }}
+      />
       <div className='max-w-screen-xl mx-auto'>
         <div className='grid md:grid-cols-2 gap-12 items-center'>
           {/* Content */}
           <div>
             <h1
               className={clsx(
-                'text-5xl font-primary md:text-6xl',
+                'font-primary text-6xl',
                 'font-bold text-brand-pink',
                 'leading-tight'
               )}
@@ -27,7 +35,7 @@ export const Hero = () => {
 
             <h1
               className={clsx(
-                'text-5xl font-primary md:text-6xl',
+                'font-primary text-6xl',
                 'font-bold text-brand-darkGreen',
                 'leading-tight'
               )}
@@ -35,7 +43,7 @@ export const Hero = () => {
               Ignite Play
             </h1>
 
-            <p className='text-xl font-primary text-brand-neutral'>
+            <p className='text-xl font-primary text-brand-neutral my-8'>
               Meet Nurtura, your AI-powered companion that learns your child's
               unique spark and delivers daily activities designed for growth,
               connection, and joy.
@@ -59,36 +67,43 @@ export const Hero = () => {
 
           {/* Illustration */}
           <div className='relative w-full max-w-lg mx-auto md:mx-0'>
+            <div className={clsx('absolute -left-20 -bottom-20 z-1')}>
+              <img src='/images/flower.svg' alt='flower' />
+            </div>
+
             <ChildIllustration />
 
             {/* Floating badges */}
             <div
               className={clsx(
-                'absolute -right-4 top-1/4',
-                'bg-white p-3',
-                'rounded-xl shadow-xl'
+                'absolute -left-20 top-12 z-3',
+                'px-8 py-2',
+                'rounded-xl',
+                'bg-[#FFF4EFCC]/80',
+                'border-2 border-[#FDC7AD52]',
+                'drop-shadow-[0_10px_25px_#EB5A3540]'
               )}
             >
-              <div className='text-sm font-bold text-brand-blue'>
-                AI-Powered Discovery
-              </div>
-              <div className='text-xs text-brand-turquoise'>
-                Smart Play Suggestions
+              <div className='text-xl font-bold text-brand-orange leading-normal'>
+                Tailored for
+                <br />
+                Every Child
               </div>
             </div>
 
             <div
               className={clsx(
-                'absolute -left-4 bottom-1/4',
-                'bg-white p-3',
-                'rounded-xl shadow-xl'
+                'absolute -right-20 bottom-12 z-3',
+                'px-8 py-2',
+                'rounded-xl',
+                'bg-[#FFF4EFCC]/80',
+                'border-2 border-[#FDC7AD52]',
+                'drop-shadow-[0_10px_25px_#EB5A3540]'
               )}
             >
-              <div className='text-sm font-bold text-brand-blue'>
-                Tailored Activities
-              </div>
-              <div className='text-xs text-brand-turquoise'>
-                For Your Child's Growth
+              <div className='text-xl font-bold text-brand-orange leading-normal'>
+                AI-Driven <br />
+                Play Ideas
               </div>
             </div>
           </div>

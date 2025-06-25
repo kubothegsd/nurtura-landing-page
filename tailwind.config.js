@@ -9,6 +9,7 @@ export default {
           darkGreen: '#0BA857',
           superDarkGreen: '#106B3D',
           neutral: '#4D4D4D',
+          orange: '#F64B27',
           sand: '#DEC4AC',
           blush: '#FFE5E5',
           mint: '#A1D6B6',

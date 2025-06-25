@@ -5,7 +5,7 @@ import { CTA } from '../components/landing/CTA';
 
 const LandingPage = () => {
   return (
-    <div className='w-full bg-brand-blush'>
+    <div className='w-full bg-[linear-gradient(90deg,#FFFFFF_0%,#EFFEF6_60%,#FECDDA_100%)]'>
       {/* Hero Section */}
       <Hero />
 

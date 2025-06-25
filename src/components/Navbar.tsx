@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
+import clsx from 'clsx';
 
 const MenuButton = ({
   isOpen,
@@ -12,7 +13,12 @@ const MenuButton = ({
   return (
     <motion.button
       onClick={onClick}
-      className='md:hidden w-10 h-10 flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors text-brand-blue'
+      className={clsx(
+        'md:hidden w-10 h-10',
+        'flex items-center justify-center',
+        'rounded-lg hover:bg-white/10',
+        'transition-colors text-brand-blue'
+      )}
       aria-label='Toggle menu'
     >
       <div className='w-6 h-4 relative'>
@@ -56,11 +62,11 @@ export const Navbar = () => {
 
   return (
     <header className='relative z-50 bg-transparent'>
-      <nav className='container mx-auto px-4 h-20'>
+      <nav className='max-w-screen-xl mx-auto px-4 h-20'>
         <div className='flex items-center justify-between h-full'>
           {/* Logo */}
           <Link to='/' className='font-accent text-2xl text-brand-blue'>
-            ParentAI
+            <img src='/images/logo.png' alt='Nurtura' className='h-10' />
           </Link>
 
           {/* Desktop Navigation */}
@@ -83,7 +89,11 @@ export const Navbar = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.2 }}
-              className='absolute left-0 right-0 top-full md:hidden bg-white shadow-lg rounded-b-2xl border-t border-gray-100'
+              className={clsx(
+                'absolute left-0 right-0 top-full',
+                'md:hidden bg-white shadow-lg',
+                'rounded-b-2xl border-t border-gray-100'
+              )}
             >
               <div className='container mx-auto p-6'>
                 <div className='flex flex-col gap-6'>
@@ -91,7 +101,7 @@ export const Navbar = () => {
                     <NavLinks mobile onClick={() => setIsOpen(false)} />
                   </div>
                   <div className='pt-4 border-t border-gray-100'>
-                    <AuthButtons mobile />
+                    <AuthButtons />
                   </div>
                 </div>
               </div>
@@ -113,7 +123,6 @@ const NavLinks = ({
   const links = [
     { to: '/about', label: 'About' },
     { href: '#features', label: 'Features' },
-    { to: '/quiz', label: 'Quiz' },
   ];
 
   return (
@@ -124,9 +133,12 @@ const NavLinks = ({
             key={link.label}
             to={link.to}
             onClick={onClick}
-            className={`block font-medium text-brand-blue/90 hover:text-brand-blue transition-colors ${
+            className={clsx(
+              'block font-medium',
+              'text-brand-neutral/90 hover:text-brand-neutral',
+              'transition-colors',
               mobile ? 'text-lg py-2' : 'inline-block'
-            }`}
+            )}
           >
             {link.label}
           </Link>
@@ -135,9 +147,12 @@ const NavLinks = ({
             key={link.label}
             href={link.href}
             onClick={onClick}
-            className={`block font-medium text-brand-blue/90 hover:text-brand-blue transition-colors ${
+            className={clsx(
+              'block font-medium',
+              'text-brand-neutral/90 hover:text-brand-neutral',
+              'transition-colors',
               mobile ? 'text-lg py-2' : 'inline-block'
-            }`}
+            )}
           >
             {link.label}
           </a>
@@ -147,16 +162,19 @@ const NavLinks = ({
   );
 };
 
-const AuthButtons = ({ mobile = false }: { mobile?: boolean }) => {
+const AuthButtons = () => {
   return (
-    <motion.button
-      whileHover={{ scale: 1.02 }}
-      whileTap={{ scale: 0.98 }}
-      className={`bg-brand-mint text-white px-6 py-3 rounded-full hover:bg-brand-turquoise-light transition-colors shadow-sm hover:shadow ${
-        mobile ? 'w-full text-center text-lg' : ''
-      }`}
+    <button
+      className={clsx(
+        'bg-brand-superDarkGreen',
+        'text-white font-secondary font-semibold',
+        'px-6 py-2',
+        'rounded-full',
+        'hover:shadow-xl',
+        'transition-all duration-300'
+      )}
     >
-      Get Started
-    </motion.button>
+      GET THE QUIZZ
+    </button>
   );
 };

@@ -1,15 +1,14 @@
 export const ChildIllustration = () => {
   return (
-    <div className='relative'>
-      <div
-        className={`relative rounded-3xl p-6 aspect-[4/3] max-h-[400px] overflow-hidden backdrop-blur-sm bg-opacity-90 shadow-lg`}
-      >
+    <div className='relative z-2'>
+      <div className={`relative aspect-[4/3] w-[489px]`}>
         <div
-          className='absolute inset-0 w-full h-full'
+          className='absolute inset-0 w-full h-full overflow-hidden rounded-3xl'
           style={{
-            backgroundImage: "url('/src/assets/images/baby.jpg')",
-            backgroundSize: 'cover',
+            backgroundImage: "url('/images/baby.jpg')",
+            backgroundSize: '101%',
             backgroundPosition: 'center',
+            backgroundRepeat: 'no-repeat',
           }}
         ></div>
       </div>
