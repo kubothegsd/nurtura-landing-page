@@ -6,10 +6,12 @@ export default {
       colors: {
         brand: {
           pink: '#F54279',
+          green: '#16D171',
           darkGreen: '#0BA857',
           superDarkGreen: '#106B3D',
           neutral: '#4D4D4D',
           orange: '#F64B27',
+          yellow: '#FFB71A',
           sand: '#DEC4AC',
           blush: '#FFE5E5',
           mint: '#A1D6B6',
