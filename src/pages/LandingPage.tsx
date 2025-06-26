@@ -1,7 +1,7 @@
 import { Hero } from '../components/landing/Hero';
 import { Features } from '../components/landing/Features';
 import { Quiz } from '../components/landing/Quiz';
-import { CTA } from '../components/landing/CTA';
+import { Community } from '../components/landing/Community';
 
 const LandingPage = () => {
   return (
@@ -15,8 +15,7 @@ const LandingPage = () => {
       {/* Quiz Section - Simplified */}
       <Quiz />
 
-      {/* Call to Action */}
-      <CTA />
+      <Community />
     </div>
   );
 };
