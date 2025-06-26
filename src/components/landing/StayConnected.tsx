@@ -12,7 +12,7 @@ export const StayConnected = () => {
         'relative',
         'py-16',
         'overflow-hidden',
-        'bg-transparent'
+        'bg-[linear-gradient(90deg,#EFFEF6_0%,#EFFEF6_60%,#FECDDA_100%)]'
       )}
     >
       {/* Left Flower */}

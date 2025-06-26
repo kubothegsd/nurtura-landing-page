@@ -113,6 +113,12 @@ export const Navbar = () => {
   );
 };
 
+type LinkType = {
+  href: string;
+  label: string;
+  to?: string;
+};
+
 const NavLinks = ({
   mobile = false,
   onClick,
@@ -120,10 +126,7 @@ const NavLinks = ({
   mobile?: boolean;
   onClick?: () => void;
 }) => {
-  const links = [
-    { to: '/about', label: 'About' },
-    { href: '#features', label: 'Features' },
-  ];
+  const links: LinkType[] = [{ href: '#features', label: 'Features' }];
 
   return (
     <>
@@ -164,17 +167,19 @@ const NavLinks = ({
 
 const AuthButtons = () => {
   return (
-    <button
+    <a
       className={clsx(
         'bg-brand-superDarkGreen',
         'text-white font-secondary font-semibold',
         'px-6 py-2',
         'rounded-full',
         'hover:shadow-xl',
-        'transition-all duration-300'
+        'transition-all duration-300',
+        'cursor-pointer'
       )}
+      href='#quiz'
     >
       GET THE QUIZZ
-    </button>
+    </a>
   );
 };
