@@ -155,7 +155,7 @@ export const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
                     'appearance-none cursor-pointer text-base text-center'
                   )}
                 >
-                  {months.map((month, index) => (
+                  {months.map((_, index) => (
                     <option
                       key={index}
                       value={index}
