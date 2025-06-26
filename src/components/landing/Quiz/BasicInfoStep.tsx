@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 
 interface ChildInfo {
   gender: 'boy' | 'girl';
@@ -69,48 +70,76 @@ export const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
   };
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-indigo-900 via-purple-900 to-pink-900 flex items-center justify-center p-6'>
-      <div className='max-w-lg w-full bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20 shadow-2xl'>
-        <div className='text-center mb-6'>
-          <span className='text-4xl block mb-4'>🌙</span>
-          <h2 className='text-2xl font-bold text-white mb-2'>
-            Tell Us About Your Little Star
-          </h2>
-          <p className='text-purple-200'>
-            Every AI analysis begins with understanding who they are...
+    <div
+      className={clsx(
+        'min-h-screen',
+        'bg-[url("/images/quiz-bg-1.jpg")] bg-cover bg-center bg-no-repeat',
+        'flex items-center justify-center p-6'
+      )}
+    >
+      <div
+        className={clsx(
+          'max-w-screen-md w-full',
+          'bg-[#0E1A4F]/80 backdrop-blur-sm',
+          'rounded-2xl p-8',
+          'shadow-xl',
+          'space-y-8',
+          'md:p-10'
+        )}
+      >
+        {/* Header Section */}
+        <div className={clsx('rounded-xl p-6 mb-2', 'bg-white/0')}>
+          <div className='flex flex-col items-center mb-2'>
+            <img
+              src='/images/question.svg'
+              className='h-16 w-16 mb-8'
+              alt='Question mark'
+            />
+            <h2 className='text-3xl font-bold text-white mb-1'>
+              <span className='text-pink-400'>Discover</span>
+              <span className='text-white'> Your </span>
+              <span className='text-yellow-300'>Little Star</span>
+            </h2>
+          </div>
+          <p className='text-yellow-300 text-center text-lg font-secondary font-light'>
+            Every child has a cosmic essence. Let's explore yours. Tell us who
+            they are and when they arrived, and watch Nurtura reveal a
+            personalized guide to their potential.
           </p>
         </div>
 
-        <div className='space-y-6'>
+        {/* Form Section */}
+        <div className={clsx('rounded-xl p-6', 'bg-white/0', 'space-y-6')}>
           <div>
-            <label className='block text-purple-100 font-medium mb-2'>
-              Their cosmic essence
+            <label className='block text-[#FFB71A] font-semibold text-center mb-4 text-lg'>
+              Is your little one a boy or girl?
             </label>
-            <div className='grid grid-cols-2 gap-3'>
+            <div className='grid grid-cols-2 gap-4'>
               {(['boy', 'girl'] as const).map(gender => (
                 <button
                   key={gender}
                   onClick={() => setChildInfo({ ...childInfo, gender })}
-                  className={`py-3 px-4 rounded-xl font-medium transition-all duration-300 ${
+                  className={clsx(
+                    'py-4 px-4 rounded-xl font-semibold text-lg',
+                    'transition-all duration-300',
                     childInfo.gender === gender
-                      ? 'bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-lg'
-                      : 'bg-white/10 text-purple-100 hover:bg-white/20'
-                  }`}
+                      ? 'bg-blue-900/80 text-white border-[2px] border-yellow-300 shadow-lg'
+                      : 'bg-blue-900/40 text-white border-[2px] border-blue-200/30 hover:bg-blue-900/60'
+                  )}
                 >
-                  {gender === 'boy' ? '👦' : '👧'}{' '}
-                  {gender.charAt(0).toUpperCase() + gender.slice(1)}
+                  {gender === 'boy' ? 'Boy' : 'Girl'}
                 </button>
               ))}
             </div>
           </div>
 
           <div>
-            <label className='block text-purple-100 font-medium mb-3'>
-              When did this star enter our world?
+            <label className='block text-[#FFB71A] font-semibold text-center mb-4 text-lg'>
+              Date of birth
             </label>
-            <div className='grid grid-cols-3 gap-3'>
+            <div className='grid grid-cols-3 gap-4'>
               <div>
-                <label className='block text-purple-200 text-sm mb-2'>
+                <label className='block text-blue-100 text-xs mb-2 text-center tracking-wide uppercase'>
                   Month
                 </label>
                 <select
@@ -118,22 +147,27 @@ export const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
                   onChange={e =>
                     updateBirthDate('month', parseInt(e.target.value))
                   }
-                  className='w-full px-3 py-3 rounded-xl bg-white/20 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent appearance-none cursor-pointer text-sm'
+                  className={clsx(
+                    'w-full px-3 py-3 rounded-xl',
+                    'bg-blue-900/40 border border-blue-200/30',
+                    'text-white focus:outline-none',
+                    'focus:ring-2 focus:ring-yellow-300 focus:border-transparent',
+                    'appearance-none cursor-pointer text-base text-center'
+                  )}
                 >
                   {months.map((month, index) => (
                     <option
                       key={index}
                       value={index}
-                      className='bg-purple-800 text-white'
+                      className='bg-blue-900 text-white'
                     >
-                      {month}
+                      {String(index + 1).padStart(2, '0')}
                     </option>
                   ))}
                 </select>
               </div>
-
               <div>
-                <label className='block text-purple-200 text-sm mb-2'>
+                <label className='block text-blue-100 text-xs mb-2 text-center tracking-wide uppercase'>
                   Day
                 </label>
                 <select
@@ -141,24 +175,29 @@ export const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
                   onChange={e =>
                     updateBirthDate('day', parseInt(e.target.value))
                   }
-                  className='w-full px-3 py-3 rounded-xl bg-white/20 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent appearance-none cursor-pointer text-sm'
+                  className={clsx(
+                    'w-full px-3 py-3 rounded-xl',
+                    'bg-blue-900/40 border border-blue-200/30',
+                    'text-white focus:outline-none',
+                    'focus:ring-2 focus:ring-yellow-300 focus:border-transparent',
+                    'appearance-none cursor-pointer text-base text-center'
+                  )}
                 >
                   {Array.from({ length: daysInMonth }, (_, i) => i + 1).map(
                     day => (
                       <option
                         key={day}
                         value={day}
-                        className='bg-purple-800 text-white'
+                        className='bg-blue-900 text-white'
                       >
-                        {day}
+                        {String(day).padStart(2, '0')}
                       </option>
                     )
                   )}
                 </select>
               </div>
-
               <div>
-                <label className='block text-purple-200 text-sm mb-2'>
+                <label className='block text-blue-100 text-xs mb-2 text-center tracking-wide uppercase'>
                   Year
                 </label>
                 <select
@@ -166,13 +205,19 @@ export const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
                   onChange={e =>
                     updateBirthDate('year', parseInt(e.target.value))
                   }
-                  className='w-full px-3 py-3 rounded-xl bg-white/20 border border-white/30 text-white focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent appearance-none cursor-pointer text-sm'
+                  className={clsx(
+                    'w-full px-3 py-3 rounded-xl',
+                    'bg-blue-900/40 border border-blue-200/30',
+                    'text-white focus:outline-none',
+                    'focus:ring-2 focus:ring-yellow-300 focus:border-transparent',
+                    'appearance-none cursor-pointer text-base text-center'
+                  )}
                 >
                   {years.map(year => (
                     <option
                       key={year}
                       value={year}
-                      className='bg-purple-800 text-white'
+                      className='bg-blue-900 text-white'
                     >
                       {year}
                     </option>
@@ -180,21 +225,25 @@ export const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
                 </select>
               </div>
             </div>
-            <p className='text-purple-300 text-xs mt-2 text-center'>
-              {childInfo.birthDate.toLocaleDateString('en-US', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })}
-            </p>
           </div>
+        </div>
 
+        {/* Button Section */}
+        <div className='flex justify-center'>
           <button
             onClick={() => setCurrentStep('zodiac-info')}
-            className='w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white font-bold py-4 px-8 rounded-xl transform hover:scale-105 transition-all duration-300 shadow-lg'
+            className={clsx(
+              'bg-yellow-400 hover:bg-yellow-500',
+              'text-blue-900 font-bold',
+              'py-3 px-8 rounded-xl',
+              'shadow-lg border-2 border-yellow-300',
+              'transition-all duration-300',
+              'text-lg',
+              'w-full max-w-xs',
+              'focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2'
+            )}
           >
-            Start AI Analysis 🌟
+            Reveal My Star Guide
           </button>
         </div>
       </div>
