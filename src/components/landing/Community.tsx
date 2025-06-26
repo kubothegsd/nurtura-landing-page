@@ -45,7 +45,7 @@ export const Community = () => {
           Sign up now and you'll get:
         </div>
 
-        <div className='grid md:grid-cols-3 gap-6 mb-12 max-w-4xl mx-auto'>
+        <div className='grid md:grid-cols-3 gap-6 mb-12 mx-auto'>
           {benefits.map((benefit, idx) => (
             <div
               key={idx}

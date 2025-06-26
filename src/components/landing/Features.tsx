@@ -76,7 +76,7 @@ export const Features = () => {
         />
       </div>
 
-      <div className='max-w-screen-xl mx-auto relative py-12'>
+      <div className='max-w-screen-xl mx-auto relative py-12 px-4'>
         <div className='flex justify-center mb-12'>
           <div
             className={clsx(

@@ -2,6 +2,7 @@ import { Hero } from '../components/landing/Hero';
 import { Features } from '../components/landing/Features';
 import { Quiz } from '../components/landing/Quiz';
 import { Community } from '../components/landing/Community';
+import { StayConnected } from '../components/landing/StayConnected';
 
 const LandingPage = () => {
   return (
@@ -16,6 +17,8 @@ const LandingPage = () => {
       <Quiz />
 
       <Community />
+
+      <StayConnected />
     </div>
   );
 };
