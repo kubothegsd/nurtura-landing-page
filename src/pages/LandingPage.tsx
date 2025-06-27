@@ -8,7 +8,6 @@ import { useEffect, useRef } from 'react';
 const LandingPage = () => {
   const sectionsRef = useRef<HTMLElement[]>([]);
   const isScrollingRef = useRef(false);
-  const lastScrollTopRef = useRef(0);
 
   useEffect(() => {
     // Add CSS for smooth scrolling

@@ -52,7 +52,7 @@ export const Hero = () => {
             </p>
 
             <div className='flex flex-col sm:flex-row gap-3 md:gap-4 justify-center md:justify-start'>
-              <button
+              <a
                 className={clsx(
                   'bg-brand-superDarkGreen',
                   'font-bold text-white font-secondary',
@@ -60,11 +60,14 @@ export const Hero = () => {
                   'rounded-full',
                   'shadow-lg hover:shadow-xl',
                   'transition-all duration-300',
-                  'w-full sm:w-auto'
+                  'w-full sm:w-auto',
+                  'cursor-pointer',
+                  'z-10'
                 )}
+                href='#quiz'
               >
                 Start your journey
-              </button>
+              </a>
             </div>
           </div>
 

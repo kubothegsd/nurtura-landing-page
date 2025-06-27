@@ -83,25 +83,25 @@ export const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
           'bg-[#0E1A4F]/80 backdrop-blur-sm',
           'rounded-xl sm:rounded-2xl p-6 sm:p-8',
           'shadow-xl',
-          'space-y-6 sm:space-y-8',
+          'space-y-2 sm:space-y-4',
           'md:p-10'
         )}
       >
         {/* Header Section */}
-        <div className={clsx('rounded-xl p-4 sm:p-6 mb-2', 'bg-white/0')}>
-          <div className='flex flex-col items-center mb-2'>
+        <div className={clsx('rounded-xl p-4 sm:p-6 mb-0', 'bg-white/0')}>
+          <div className='flex flex-col items-center mb-0'>
             <img
               src='/images/question.svg'
-              className='h-12 w-12 sm:h-16 sm:w-16 mb-4 sm:mb-8'
+              className='h-12 w-12 sm:h-16 sm:w-16 mb-2 sm:mb-4'
               alt='Question mark'
             />
-            <h2 className='text-2xl sm:text-3xl font-bold text-white mb-1 text-center'>
+            <h2 className='text-2xl sm:text-3xl font-bold text-white mb-0 md:mb-2 text-center'>
               <span className='text-pink-400'>Discover</span>
               <span className='text-white'> Your </span>
               <span className='text-yellow-300'>Little Star</span>
             </h2>
           </div>
-          <p className='text-yellow-300 text-center text-sm sm:text-base md:text-lg font-secondary font-light'>
+          <p className='text-yellow-300 hidden md:block text-center text-sm sm:text-base md:text-lg font-secondary font-light'>
             Every child has a cosmic essence. Let's explore yours. Tell us who
             they are and when they arrived, and watch Nurtura reveal a
             personalized guide to their potential.
