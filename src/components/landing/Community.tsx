@@ -53,7 +53,6 @@ export const Community = () => {
 
   return (
     <section
-      id='community'
       className={clsx(
         'w-full bg-[#FFF2D9]',
         'min-h-screen',

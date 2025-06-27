@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
@@ -55,13 +55,41 @@ const MenuButton = ({
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Show navbar when scrolling up, hide when scrolling down
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [lastScrollY]);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
   return (
-    <header className='relative z-50 bg-transparent'>
+    <motion.header
+      className='fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-100'
+      initial={{ y: 0 }}
+      animate={{ y: isVisible ? 0 : -100 }}
+      transition={{ duration: 0.3, ease: 'easeInOut' }}
+    >
       <nav className='max-w-screen-xl mx-auto px-4 h-20'>
         <div className='flex items-center justify-between h-full'>
           {/* Logo */}
@@ -109,7 +137,7 @@ export const Navbar = () => {
           )}
         </AnimatePresence>
       </nav>
-    </header>
+    </motion.header>
   );
 };
 

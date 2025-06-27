@@ -39,7 +39,6 @@ const additionalFeatures = [
 export const Features = () => {
   return (
     <section
-      id='features'
       className={clsx(
         'w-full bg-[#F8F8F8]',
         'min-h-screen',

@@ -5,7 +5,6 @@ import { SiThreads } from 'react-icons/si';
 export const StayConnected = () => {
   return (
     <section
-      id='stay-connected'
       className={clsx(
         'w-full',
         'flex items-center justify-center',
