@@ -74,34 +74,34 @@ export const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
       className={clsx(
         'min-h-screen',
         'bg-[url("/images/quiz-bg-1.jpg")] bg-cover bg-center bg-no-repeat',
-        'flex items-center justify-center p-6'
+        'flex items-center justify-center p-4 sm:p-6'
       )}
     >
       <div
         className={clsx(
           'max-w-screen-md w-full',
           'bg-[#0E1A4F]/80 backdrop-blur-sm',
-          'rounded-2xl p-8',
+          'rounded-xl sm:rounded-2xl p-6 sm:p-8',
           'shadow-xl',
-          'space-y-8',
+          'space-y-6 sm:space-y-8',
           'md:p-10'
         )}
       >
         {/* Header Section */}
-        <div className={clsx('rounded-xl p-6 mb-2', 'bg-white/0')}>
+        <div className={clsx('rounded-xl p-4 sm:p-6 mb-2', 'bg-white/0')}>
           <div className='flex flex-col items-center mb-2'>
             <img
               src='/images/question.svg'
-              className='h-16 w-16 mb-8'
+              className='h-12 w-12 sm:h-16 sm:w-16 mb-4 sm:mb-8'
               alt='Question mark'
             />
-            <h2 className='text-3xl font-bold text-white mb-1'>
+            <h2 className='text-2xl sm:text-3xl font-bold text-white mb-1 text-center'>
               <span className='text-pink-400'>Discover</span>
               <span className='text-white'> Your </span>
               <span className='text-yellow-300'>Little Star</span>
             </h2>
           </div>
-          <p className='text-yellow-300 text-center text-lg font-secondary font-light'>
+          <p className='text-yellow-300 text-center text-sm sm:text-base md:text-lg font-secondary font-light'>
             Every child has a cosmic essence. Let's explore yours. Tell us who
             they are and when they arrived, and watch Nurtura reveal a
             personalized guide to their potential.
@@ -109,18 +109,24 @@ export const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
         </div>
 
         {/* Form Section */}
-        <div className={clsx('rounded-xl p-6', 'bg-white/0', 'space-y-6')}>
+        <div
+          className={clsx(
+            'rounded-xl p-4 sm:p-6',
+            'bg-white/0',
+            'space-y-4 sm:space-y-6'
+          )}
+        >
           <div>
-            <label className='block text-[#FFB71A] font-semibold text-center mb-4 text-lg'>
+            <label className='block text-[#FFB71A] font-semibold text-center mb-3 sm:mb-4 text-base sm:text-lg'>
               Is your little one a boy or girl?
             </label>
-            <div className='grid grid-cols-2 gap-4'>
+            <div className='grid grid-cols-2 gap-3 sm:gap-4'>
               {(['boy', 'girl'] as const).map(gender => (
                 <button
                   key={gender}
                   onClick={() => setChildInfo({ ...childInfo, gender })}
                   className={clsx(
-                    'py-4 px-4 rounded-xl font-semibold text-lg',
+                    'py-3 sm:py-4 px-3 sm:px-4 rounded-lg sm:rounded-xl font-semibold text-sm sm:text-lg',
                     'transition-all duration-300',
                     childInfo.gender === gender
                       ? 'bg-blue-900/80 text-white border-[2px] border-yellow-300 shadow-lg'
@@ -134,12 +140,12 @@ export const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
           </div>
 
           <div>
-            <label className='block text-[#FFB71A] font-semibold text-center mb-4 text-lg'>
+            <label className='block text-[#FFB71A] font-semibold text-center mb-3 sm:mb-4 text-base sm:text-lg'>
               Date of birth
             </label>
-            <div className='grid grid-cols-3 gap-4'>
+            <div className='grid grid-cols-3 gap-2 sm:gap-4'>
               <div>
-                <label className='block text-blue-100 text-xs mb-2 text-center tracking-wide uppercase'>
+                <label className='block text-blue-100 text-xs mb-1 sm:mb-2 text-center tracking-wide uppercase'>
                   Month
                 </label>
                 <select
@@ -148,11 +154,11 @@ export const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
                     updateBirthDate('month', parseInt(e.target.value))
                   }
                   className={clsx(
-                    'w-full px-3 py-3 rounded-xl',
+                    'w-full px-2 sm:px-3 py-2 sm:py-3 rounded-lg sm:rounded-xl',
                     'bg-blue-900/40 border border-blue-200/30',
                     'text-white focus:outline-none',
                     'focus:ring-2 focus:ring-yellow-300 focus:border-transparent',
-                    'appearance-none cursor-pointer text-base text-center'
+                    'appearance-none cursor-pointer text-sm sm:text-base text-center'
                   )}
                 >
                   {months.map((_, index) => (
@@ -167,7 +173,7 @@ export const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
                 </select>
               </div>
               <div>
-                <label className='block text-blue-100 text-xs mb-2 text-center tracking-wide uppercase'>
+                <label className='block text-blue-100 text-xs mb-1 sm:mb-2 text-center tracking-wide uppercase'>
                   Day
                 </label>
                 <select
@@ -176,11 +182,11 @@ export const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
                     updateBirthDate('day', parseInt(e.target.value))
                   }
                   className={clsx(
-                    'w-full px-3 py-3 rounded-xl',
+                    'w-full px-2 sm:px-3 py-2 sm:py-3 rounded-lg sm:rounded-xl',
                     'bg-blue-900/40 border border-blue-200/30',
                     'text-white focus:outline-none',
                     'focus:ring-2 focus:ring-yellow-300 focus:border-transparent',
-                    'appearance-none cursor-pointer text-base text-center'
+                    'appearance-none cursor-pointer text-sm sm:text-base text-center'
                   )}
                 >
                   {Array.from({ length: daysInMonth }, (_, i) => i + 1).map(
@@ -197,7 +203,7 @@ export const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
                 </select>
               </div>
               <div>
-                <label className='block text-blue-100 text-xs mb-2 text-center tracking-wide uppercase'>
+                <label className='block text-blue-100 text-xs mb-1 sm:mb-2 text-center tracking-wide uppercase'>
                   Year
                 </label>
                 <select
@@ -206,11 +212,11 @@ export const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
                     updateBirthDate('year', parseInt(e.target.value))
                   }
                   className={clsx(
-                    'w-full px-3 py-3 rounded-xl',
+                    'w-full px-2 sm:px-3 py-2 sm:py-3 rounded-lg sm:rounded-xl',
                     'bg-blue-900/40 border border-blue-200/30',
                     'text-white focus:outline-none',
                     'focus:ring-2 focus:ring-yellow-300 focus:border-transparent',
-                    'appearance-none cursor-pointer text-base text-center'
+                    'appearance-none cursor-pointer text-sm sm:text-base text-center'
                   )}
                 >
                   {years.map(year => (
@@ -235,10 +241,10 @@ export const BasicInfoStep: React.FC<BasicInfoStepProps> = ({
             className={clsx(
               'bg-yellow-400 hover:bg-yellow-500',
               'text-blue-900 font-bold',
-              'py-3 px-8 rounded-xl',
+              'py-3 px-6 sm:px-8 rounded-lg sm:rounded-xl',
               'shadow-lg border-2 border-yellow-300',
               'transition-all duration-300',
-              'text-lg',
+              'text-base sm:text-lg',
               'w-full max-w-xs',
               'focus:outline-none focus:ring-2 focus:ring-yellow-300 focus:ring-offset-2'
             )}

@@ -46,41 +46,41 @@ export const Features = () => {
         'overflow-hidden relative'
       )}
     >
-      <div className='absolute top-20 left-20'>
+      <div className='absolute top-10 sm:top-20 left-4 sm:left-20'>
         <img
           src='/images/rocket.svg'
           alt='rocket decoration'
-          className='w-24 h-24'
+          className='w-12 h-12 sm:w-24 sm:h-24'
         />
       </div>
-      <div className='absolute top-20 right-20'>
+      <div className='absolute top-10 sm:top-20 right-4 sm:right-20'>
         <img
           src='/images/rainbow.svg'
           alt='rainbow decoration'
-          className='w-24 h-24'
+          className='w-12 h-12 sm:w-24 sm:h-24'
         />
       </div>
-      <div className='absolute bottom-40 left-20'>
+      <div className='absolute bottom-20 sm:bottom-40 left-4 sm:left-20'>
         <img
           src='/images/earth.svg'
           alt='earth decoration'
-          className='w-32 h-32 '
+          className='w-20 h-20 sm:w-32 sm:h-32'
         />
       </div>
-      <div className='absolute bottom-40 right-10'>
+      <div className='absolute bottom-20 sm:bottom-40 right-2 sm:right-10'>
         <img
           src='/images/field.svg'
           alt='field decoration'
-          className='w-48 h-48'
+          className='w-32 h-32 sm:w-48 sm:h-48'
         />
       </div>
 
-      <div className='max-w-screen-xl mx-auto relative py-12 px-4'>
-        <div className='flex justify-center mb-12'>
+      <div className='max-w-screen-xl mx-auto relative py-8 sm:py-12 px-4'>
+        <div className='flex justify-center mb-8 sm:mb-12'>
           <div
             className={clsx(
               'inline-block',
-              'px-6',
+              'px-4 sm:px-6',
               'py-2',
               'rounded-full',
               'border',
@@ -88,7 +88,7 @@ export const Features = () => {
               'bg-[#FFF9F6]',
               'text-brand-neutral',
               'font-bold',
-              'text-lg',
+              'text-base sm:text-lg',
               'shadow-sm'
             )}
           >
@@ -96,13 +96,13 @@ export const Features = () => {
           </div>
         </div>
 
-        <div className='text-center max-w-2xl mx-auto mb-12 text-4xl font-primary font-bold'>
+        <div className='text-center max-w-2xl mx-auto mb-8 sm:mb-12 text-2xl sm:text-3xl md:text-4xl font-primary font-bold'>
           <span className='text-brand-green'>How</span>
           <span className='text-brand-yellow'> it</span>
           <span className='text-brand-pink'> works</span>
         </div>
 
-        <div className='grid md:grid-cols-3 gap-8 mx-auto relative'>
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mx-auto relative'>
           {mainFeatures.map((feature, index) => (
             <div
               key={index}
@@ -110,8 +110,8 @@ export const Features = () => {
                 'bg-white/70',
                 'backdrop-blur-sm',
                 'hover:border-2 hover:border-[#FFF1D5] hover:-m-[2px]',
-                'rounded-2xl',
-                'p-4',
+                'rounded-xl sm:rounded-2xl',
+                'p-4 sm:p-6',
                 'shadow-xl',
                 'flex flex-col items-center',
                 'text-center',
@@ -121,11 +121,15 @@ export const Features = () => {
               <img
                 src={feature.logoUrl}
                 alt={feature.title + ' icon'}
-                className={clsx('w-14', 'h-14', 'my-8', 'mx-auto')}
+                className={clsx(
+                  'w-10 h-10 sm:w-14 sm:h-14',
+                  'my-4 sm:my-8',
+                  'mx-auto'
+                )}
               />
               <h4
                 className={clsx(
-                  'text-xl',
+                  'text-lg sm:text-xl',
                   'font-primary',
                   'font-bold',
                   'text-brand-orange',
@@ -138,7 +142,7 @@ export const Features = () => {
               <p
                 className={clsx(
                   'text-brand-neutral',
-                  'text-base font-normal leading-normal',
+                  'text-sm sm:text-base font-normal leading-relaxed',
                   'font-secondary'
                 )}
               >
@@ -149,7 +153,7 @@ export const Features = () => {
         </div>
 
         {/* Simplified additional features */}
-        <div className='grid md:grid-cols-3 gap-8 mx-auto relative mt-8'>
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8 mx-auto relative mt-6 sm:mt-8'>
           {additionalFeatures.map((feature, index) => (
             <div
               key={index}
@@ -157,24 +161,24 @@ export const Features = () => {
                 'bg-white/70',
                 'backdrop-blur-sm',
                 'hover:border-2 hover:border-[#FFF1D5] hover:-m-[2px]',
-                'rounded-2xl',
-                'p-2',
+                'rounded-xl sm:rounded-2xl',
+                'p-3 sm:p-4',
                 'shadow-xl',
                 'flex flex-col items-center',
                 'text-center',
                 'relative'
               )}
             >
-              <div className='flex items-center justify-center'>
+              <div className='flex items-center justify-center gap-2 sm:gap-4'>
                 <img
                   src={feature.logoUrl}
                   alt={feature.title + ' icon'}
-                  className={clsx('w-14', 'h-14', 'pr-4', 'mx-auto')}
+                  className={clsx('w-8 h-8 sm:w-14 sm:h-14')}
                 />
 
                 <h4
                   className={clsx(
-                    'text-lg',
+                    'text-sm sm:text-lg',
                     'font-primary',
                     'font-bold',
                     'text-brand-orange',
