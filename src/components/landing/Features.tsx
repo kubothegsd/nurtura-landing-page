@@ -25,19 +25,19 @@ const additionalFeatures = [
   {
     title: 'Mindful Parenting Corner',
     description:
-      "Quick micro-practices to keep you calm.",
+      "Quick micro-practices to keep you calm and connected.",
     logoUrl: '/images/star.svg',
   },
   {
     title: 'Smart Reports',
     description:
-      "Quick micro-practices to keep you calm.",
+      "One-click, beautifully designed summaries for doctors or family.",
     logoUrl: '/images/rubik.svg',
   },
   {
     title: 'Science-Backed Advice',
     description:
-      "Quick micro-practices to keep you calm.",
+      "Expert-vetted guidance tailored to your child's profile.",
     logoUrl: '/images/sword.svg',
   },
 ];
