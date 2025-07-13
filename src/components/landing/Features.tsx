@@ -24,14 +24,20 @@ const mainFeatures = [
 const additionalFeatures = [
   {
     title: 'Mindful Parenting Corner',
+    description:
+      "Quick micro-practices to keep you calm and connected.",
     logoUrl: '/images/star.svg',
   },
   {
     title: 'Smart Reports',
+    description:
+      "One-click, beautifully designed summaries for doctors or family.",
     logoUrl: '/images/rubik.svg',
   },
   {
     title: 'Science-Backed Advice',
+    description:
+      "Expert-vetted guidance tailored to your child's profile.",
     logoUrl: '/images/sword.svg',
   },
 ];
@@ -165,7 +171,7 @@ export const Features = () => {
                 'p-3 sm:p-4',
                 'shadow-xl',
                 'flex flex-col items-center',
-                'text-center',
+                'text-left',
                 'relative'
               )}
             >
@@ -176,7 +182,8 @@ export const Features = () => {
                   className={clsx('w-8 h-8 sm:w-14 sm:h-14')}
                 />
 
-                <h4
+                <div className='flex flex-col items-start justify-center'>
+                  <h4
                   className={clsx(
                     'text-sm sm:text-lg',
                     'font-primary',
@@ -188,6 +195,17 @@ export const Features = () => {
                 >
                   {feature.title}
                 </h4>
+
+                <p
+                  className={clsx(
+                    'text-brand-neutral',
+                    'text-sm sm:text-base font-normal leading-relaxed',
+                    'font-secondary'
+                  )}
+                >
+                  {feature.description}
+                </p>
+                </div>
               </div>
             </div>
           ))}

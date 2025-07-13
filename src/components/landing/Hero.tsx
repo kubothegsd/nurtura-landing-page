@@ -31,7 +31,7 @@ export const Hero = () => {
                 'text-3xl sm:text-4xl md:text-5xl lg:text-6xl'
               )}
             >
-              Spark Curiosity
+              Spark Learning
             </h1>
 
             <h1
@@ -46,9 +46,14 @@ export const Hero = () => {
             </h1>
 
             <p className='text-sm sm:text-base md:text-lg lg:text-xl font-primary text-brand-neutral my-4 md:my-6 lg:my-8 max-w-lg mx-auto md:mx-0'>
-              Meet Nurtura, your AI-powered companion that learns your child's
-              unique spark and delivers daily activities designed for growth,
-              connection, and joy.
+              Your AI-powered parenting co-pilot, turning spare minutes into 
+              science-backed growth moments. Nurtura crafts daily activities 
+              and milestone insights—tailored to your child’s unique potential 
+              and designed to free your time for what matters most.
+            </p>
+
+            <p className='text-sm sm:text-base md:text-lg lg:text-xl font-primary text-brand-neutral my-4 md:my-6 lg:my-8 max-w-lg mx-auto md:mx-0'>
+              Less planning. More magic.
             </p>
 
             <div className='flex flex-col sm:flex-row gap-3 md:gap-4 justify-center md:justify-start'>
@@ -66,7 +71,7 @@ export const Hero = () => {
                 )}
                 href='#quiz'
               >
-                Start your journey
+                Unlock Their Potential
               </a>
             </div>
           </div>
@@ -112,9 +117,7 @@ export const Hero = () => {
               )}
             >
               <div className='text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-bold text-brand-orange leading-tight'>
-                Tailored for
-                <br />
-                Every Child
+                Play that teaches
               </div>
             </div>
 
@@ -129,8 +132,7 @@ export const Hero = () => {
               )}
             >
               <div className='text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-bold text-brand-orange leading-tight'>
-                AI-Driven <br />
-                Play Ideas
+                AI-Crafted for Every Child
               </div>
             </div>
           </div>
